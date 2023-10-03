@@ -9,13 +9,15 @@ import {
   Pressable,
   Alert,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { MaterialIcons, AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
+import { UserContext, UserType } from "../context/UserContext";
 
 const LoginScreen = () => {
+  const { loginUser, setLoginUser } = useContext(UserType);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigation = useNavigation();
@@ -25,7 +27,7 @@ const LoginScreen = () => {
         const token = await AsyncStorage.getItem("authToken");
         if (token) {
           setTimeout(() => {
-            navigation.replace("Main");
+            navigation.replace("Main" && "Drawer");
           }, 400);
         }
       } catch (err) {
@@ -50,6 +52,8 @@ const LoginScreen = () => {
       .then((res) => {
         console.log(res);
         const token = res.data.token;
+        setLoginUser(token);
+        // console.log(res);
 
         AsyncStorage.setItem("authToken", token);
         navigation.navigate("Main");

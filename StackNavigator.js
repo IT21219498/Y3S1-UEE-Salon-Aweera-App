@@ -5,7 +5,8 @@ import RegisterScreen from "./screens/RegisterScreen";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import HomeScreen from "./screens/HomeScreen";
-// import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 import {
   Entypo,
   AntDesign,
@@ -16,21 +17,33 @@ import AppointmentScreen from "./screens/AppointmentScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import CreateScreen from "./screens/CreateScreen";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import PackagesScreen from "./screens/PackagesScreen";
+import MyAppointmentsScreen from "./screens/MyAppointmentsScreen";
+import FeedbackScreen from "./screens/FeedbackScreen";
+import SavedPostsScreen from "./screens/SavedPostsScreen";
 
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator();
-  const Tab = createMaterialBottomTabNavigator();
+  const Tab = createBottomTabNavigator();
+  const Drawer = createDrawerNavigator();
 
   function Bottomtabs() {
     return (
-      <Tab.Navigator barStyle={{ backgroundColor: "#735D7F" }}>
+      <Tab.Navigator
+        screenOptions={{
+          tabBarActiveBackgroundColor: "#AB83A1",
+          tabBarInactiveBackgroundColor: "#735D7F",
+          tabBarStyle: { position: "absolute" },
+        }}
+      >
         <Tab.Screen
           name='Home'
           component={HomeScreen}
           options={{
+            headerShown: false,
             tabBarLabel: "Home",
             tabBarLabelStyle: { color: "black" },
-            headerShown: false,
+
             tabBarIcon: ({ focused }) =>
               focused ? (
                 <Entypo name='home' size={24} color='black' />
@@ -40,17 +53,18 @@ const StackNavigator = () => {
           }}
         />
         <Tab.Screen
-          name='Create'
-          component={CreateScreen}
+          name='Packages'
+          component={PackagesScreen}
           options={{
-            tabBarLabel: "Create",
-            tabBarLabelStyle: { color: "black" },
             headerShown: false,
+            tabBarLabel: "Packages",
+            tabBarLabelStyle: { color: "black" },
+
             tabBarIcon: ({ focused }) =>
               focused ? (
-                <Ionicons name='create' size={24} color='black' />
+                <Ionicons name='list-circle-sharp' size={24} color='black' />
               ) : (
-                <Ionicons name='create-outline' size={24} color='black' />
+                <Ionicons name='list-circle-outline' size={24} color='black' />
               ),
           }}
         />
@@ -58,9 +72,10 @@ const StackNavigator = () => {
           name='Appointment'
           component={AppointmentScreen}
           options={{
+            headerShown: false,
             tabBarLabel: "Appointment",
             tabBarLabelStyle: { color: "black" },
-            headerShown: false,
+
             tabBarIcon: ({ focused }) =>
               focused ? (
                 <MaterialCommunityIcons
@@ -77,23 +92,54 @@ const StackNavigator = () => {
               ),
           }}
         />
-        <Tab.Screen
-          name='Profile'
-          component={ProfileScreen}
-          options={{
-            tabBarLabel: "Profile",
-            tabBarLabelStyle: { color: "black" },
-            headerShown: false,
-            tabBarIcon: ({ focused }) =>
-              focused ? (
-                <Ionicons name='person' size={24} color='black' />
-              ) : (
-                <Ionicons name='person-outline' size={24} color='black' />
-              ),
-          }}
-        />
       </Tab.Navigator>
     );
+  }
+
+  function DrawerNavigator() {
+    <NavigationContainer>
+      <Drawer.Navigator
+        screenOptions={{
+          drawerStyle: {
+            backgroundColor: "white",
+            width: 250,
+          },
+        }}
+      >
+        <Drawer.Screen
+          name='Home'
+          options={{
+            drawerLabel: "Home",
+            title: "Home",
+          }}
+          component={HomeScreen}
+        />
+        <Drawer.Screen
+          name='My appointments'
+          options={{
+            drawerLabel: "My appointments",
+            title: "My appointments",
+          }}
+          component={MyAppointmentsScreen}
+        />
+        <Drawer.Screen
+          name='Feedbacks'
+          options={{
+            drawerLabel: "Feedbacks",
+            title: "Feedbacks",
+          }}
+          component={FeedbackScreen}
+        />
+        <Drawer.Screen
+          name='Saved Posts'
+          options={{
+            drawerLabel: "Saved Posts",
+            title: "Saved Posts",
+          }}
+          component={SavedPostsScreen}
+        />
+      </Drawer.Navigator>
+    </NavigationContainer>;
   }
   return (
     <NavigationContainer>
@@ -111,6 +157,11 @@ const StackNavigator = () => {
         <Stack.Screen
           name='Main'
           component={Bottomtabs}
+          options={{ headerShown: false }}
+        ></Stack.Screen>
+        <Stack.Screen
+          name='MyAppointments'
+          component={MyAppointmentsScreen}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

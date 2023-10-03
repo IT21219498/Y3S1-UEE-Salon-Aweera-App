@@ -1,4 +1,14 @@
-import { StyleSheet, Text, View, ScrollView, Image } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  Image,
+  TextInput,
+  Button,
+  TouchableOpacity,
+  ImageBackground,
+} from "react-native";
 import React, {
   useCallback,
   useContext,
@@ -13,27 +23,46 @@ import axios from "axios";
 import { AntDesign, Ionicons, FontAwesome } from "@expo/vector-icons";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Header from "../components/Header";
 
 const HomeScreen = () => {
   const { userId, setUserId } = useContext(UserType);
   const [posts, setPosts] = useState([]);
   const navigation = useNavigation();
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerShown: true,
-      // title: "Explore Salon Feed",
-      // headerTitleStyle: {
-      //   fontSize: 20,
-      //   fontWeight: "bold",
-      //   color: "black",
-      // },
-      // headerStyle: {
-      //   backgroundColor: "black",
-      //   height: 200,
-      // },
-    });
-  }, []);
+  // useLayoutEffect(() => {
+  //   navigation.setOptions({
+  //     headerShown: true,
+  //     title: "Explore Salon Feed",
+  //     headerTitleStyle: {
+  //       fontSize: 20,
+  //       fontWeight: "bold",
+  //       color: "black",
+  //     },
+  //     headerStyle: {
+  //       backgroundColor: "#735D7F",
+  //       height: 80,
+  //     },
+  //     headerTitleAlign: "center", // Center-align the title
+  //     headerTitleContainerStyle: {
+  //       justifyContent: "center", // Center-align the title container
+  //     },
+  //     headerLeft: () => null, // Hide the left header component
+  //     headerRight: () => (
+  //       <TouchableOpacity
+  //         style={{ marginRight: 15 }}
+  //         onPress={() => handleImageClick()}
+  //       >
+  //         <FontAwesome name='bell' size={24} color='black' marginRight='10' />
+  //       </TouchableOpacity>
+  //     ),
+  //   });
+  // }, []);
+  // const handleImageClick = () => {
+  //   navigation.navigate("MyAppointments");
+  // };
+
+  const [content, setContent] = useState("");
   useEffect(() => {
     const fetchUsers = async () => {
       const token = await AsyncStorage.getItem("authToken");
@@ -51,11 +80,37 @@ const HomeScreen = () => {
       fetchPosts();
     }, [])
   );
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const token = await AsyncStorage.getItem("authToken");
+      const decodedToken = jwt_decode(token);
+      const userId = decodedToken.userId;
+      setUserId(userId);
+    };
+    fetchUsers();
+  }, []);
+  const handlePostSubmit = () => {
+    const postData = {
+      userId,
+    };
+    if (content) {
+      postData.content = content;
+    }
+
+    axios
+      .post("http://192.168.1.6:5000/create-post", postData)
+      .then((response) => {
+        setContent("");
+      })
+      .catch((err) => {
+        console.log("error creating post", err);
+      });
+  };
 
   const fetchPosts = async () => {
     try {
       const res = await axios.get("http://192.168.1.6:5000/get-posts");
-      console.log("posts", res.data);
+      // console.log("posts", res.data);
 
       setPosts(res.data);
     } catch (err) {
@@ -96,18 +151,48 @@ const HomeScreen = () => {
   };
   return (
     <SafeAreaView style={{ backgroundColor: "#F7F0FC", height: 1000 }}>
+      <Header title={"Explore Salon Feed"} />
       <ScrollView style={{ flex: 1, backgroundColor: "#F7F0FC" }}>
-        {/* <View style={{ alignItems: "center", marginTop: 10 }}>
-        <Image
+        <View
           style={{
-            width: 200,
-            height: 100,
-            resizeMode: "contain",
-            tintColor: "black",
+            flexDirection: "row",
+            marginLeft: 10,
+            marginTop: 2,
           }}
-          source={require("../assets/aweera.png")}
-        />
-      </View> */}
+        >
+          <View
+            style={{
+              flex: 1, // Take up available space
+              marginRight: 10, // Add spacing between input and button
+              backgroundColor: "white", // Background color for input
+              borderRadius: 10,
+              borderColor: "#AB83A1",
+              borderWidth: 1,
+            }}
+          >
+            <TextInput
+              style={{
+                color: "grey",
+                marginVertical: 10,
+                width: "100%", // Take up available width
+                padding: 10, // Add padding inside input
+              }}
+              value={content}
+              onChangeText={(text) => setContent(text)}
+              placeholderTextColor={"black"}
+              placeholder='Type your message...'
+              multiline
+            />
+          </View>
+        </View>
+
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={handlePostSubmit}
+          title='Share'
+        >
+          <Text style={styles.buttonText}>Share Post</Text>
+        </TouchableOpacity>
 
         <View style={{ marTop: 20 }}>
           {posts?.map((post) => (
@@ -126,8 +211,8 @@ const HomeScreen = () => {
                   style={{
                     width: 40,
                     height: 40,
-                    borderradius: 20,
-                    resizeMode: "conatin",
+                    // borderradius: 20,
+                    resizeMode: "contain",
                   }}
                   source={{
                     uri: "https://cdn-icons-png.flaticon.com/128/149/149071.png",
@@ -186,4 +271,20 @@ const HomeScreen = () => {
 
 export default HomeScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  buttonContainer: {
+    width: 100,
+    height: 30,
+    marginLeft: 270,
+    backgroundColor: "#735D7F",
+    borderRadius: 10,
+    marginTop: 10,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+});
