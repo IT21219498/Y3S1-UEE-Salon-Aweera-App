@@ -98,7 +98,7 @@ const HomeScreen = () => {
     }
 
     axios
-      .post("http://192.168.1.6:5000/create-post", postData)
+      .post("http://192.168.1.25:5000/create-post", postData)
       .then((response) => {
         setContent("");
       })
@@ -109,7 +109,7 @@ const HomeScreen = () => {
 
   const fetchPosts = async () => {
     try {
-      const res = await axios.get("http://192.168.1.6:5000/get-posts");
+      const res = await axios.get("http://192.168.1.25:5000/get-posts");
       // console.log("posts", res.data);
 
       setPosts(res.data);
@@ -121,7 +121,7 @@ const HomeScreen = () => {
   const handleLike = async (postId) => {
     try {
       const res = await axios.put(
-        `http://192.168.1.6:5000/posts/${postId}/${userId}/like`
+        `http://192.168.1.25:5000/posts/${postId}/${userId}/like`
       );
       const updatedPost = res.data;
       const updatedPosts = posts?.map((post) =>
@@ -137,7 +137,7 @@ const HomeScreen = () => {
   const handleDisLike = async (postId) => {
     try {
       const res = await axios.put(
-        `http://192.168.1.6:5000/posts/${postId}/${userId}/unlike`
+        `http://192.168.1.25:5000/posts/${postId}/${userId}/unlike`
       );
       const updatedPost = res.data;
       const updatedPosts = posts?.map((post) =>

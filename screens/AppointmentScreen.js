@@ -1,17 +1,31 @@
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import React, { useLayoutEffect } from "react";
-import Header from "../components/Header";
-import { FontAwesome } from "@expo/vector-icons";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { useNavigation } from "@react-navigation/native";
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import React, { useLayoutEffect } from 'react';
+import Header from '../components/Header';
+import { FontAwesome } from '@expo/vector-icons';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native';
+import CategoryCards from '../components/CategoryCards';
 
 const AppointmentScreen = () => {
   const navigation = useNavigation();
 
   return (
-    <SafeAreaView style={{ backgroundColor: "#F7F0FC", height: 1000 }}>
-      <Header title={"Make an Appointment"} />
-      <Text>AppointmentScreen</Text>
+    <SafeAreaView style={{ backgroundColor: '#F7F0FC', height: 1000 }}>
+      <Header title={'Make an Appointment'} />
+      <View style={{ alignItems: 'left', marginTop: 15, marginLeft: 15 }}>
+        <Text style={{ fontSize: 25, fontWeight: 'bold' }}>
+          Select a category
+        </Text>
+      </View>
+      <View
+        style={{
+          borderWidth: 0.5,
+          borderColor: 'black',
+          marginTop: 15,
+          marginBottom: 10,
+        }}
+      />
+      <CategoryCards />
     </SafeAreaView>
   );
 };
