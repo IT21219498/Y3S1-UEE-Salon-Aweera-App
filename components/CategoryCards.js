@@ -1,21 +1,27 @@
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import categories from '../data/category';
 import { useNavigation } from '@react-navigation/native';
+import { Appointment } from '../context/AppointmentContext';
 
 const CategoryCards = () => {
   const catData = categories;
   const navigation = useNavigation();
+  const { appointmentDetails, setAppointmentDetails } = useContext(Appointment);
 
   return (
     <View>
       {catData.map((item, key) => (
         <Pressable
-          onPress={() =>
+          onPress={() => {
             navigation.navigate('SelectPackage', {
               packages: item.packages,
-            })
-          }
+            });
+            setAppointmentDetails([
+              ...appointmentDetails,
+              { category: item.name },
+            ]);
+          }}
           style={{ alignItems: 'center', justifyContent: 'center', margin: 10 }}
           key={key}
         >

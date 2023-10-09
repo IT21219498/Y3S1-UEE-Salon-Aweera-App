@@ -1,15 +1,13 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React, { useContext } from 'react';
 import Header from '../components/Header';
-import PackageCards from '../components/PackageCards';
 import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/core';
 import { Appointment } from '../context/AppointmentContext';
 
-const SelectPackageScreen = () => {
+const SelectTimeScreen = () => {
   const navigation = useNavigation();
   const { appointmentDetails, setAppointmentDetails } = useContext(Appointment);
-  console.log(appointmentDetails);
   return (
     <View>
       <Header title={'Make an Appointment'} />
@@ -23,9 +21,7 @@ const SelectPackageScreen = () => {
       >
         <Ionicons
           onPress={() => {
-            {
-              navigation.goBack();
-            }
+            navigation.goBack();
             setAppointmentDetails((prevDetails) => prevDetails.slice(0, -1));
           }}
           style={{ marginRight: 5 }}
@@ -34,7 +30,7 @@ const SelectPackageScreen = () => {
           color="Black"
         />
         <Text style={{ fontSize: 25, fontWeight: 'bold' }}>
-          Select a Hair Style Package
+          Select a Date & Time
         </Text>
       </View>
       <View
@@ -45,11 +41,10 @@ const SelectPackageScreen = () => {
           marginBottom: 10,
         }}
       />
-      <PackageCards />
     </View>
   );
 };
 
-export default SelectPackageScreen;
+export default SelectTimeScreen;
 
 const styles = StyleSheet.create({});

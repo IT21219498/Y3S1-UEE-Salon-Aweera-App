@@ -1,12 +1,12 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
-import StackNavigator from "./StackNavigator";
-import AppStack from "./navigation/AppStack";
-import { UserContext, UserType } from "./context/UserContext";
-import "react-native-gesture-handler";
-import React, { useCallback, useContext, useEffect, useState } from "react";
-import * as SplashScreen from "expo-splash-screen";
-import CheckuserLogin from "./screens/CheckuserLogin";
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, View } from 'react-native';
+import StackNavigator from './StackNavigator';
+import AppStack from './navigation/AppStack';
+import { UserContext, UserType } from './context/UserContext';
+import 'react-native-gesture-handler';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
+import * as SplashScreen from 'expo-splash-screen';
+import CheckuserLogin from './screens/CheckuserLogin';
 import {
   useFonts,
   Poppins_300Light,
@@ -16,10 +16,11 @@ import {
   Poppins_700Bold,
   Poppins_800ExtraBold,
   Poppins_900Black,
-} from "@expo-google-fonts/poppins";
-import { NavigationContainer } from "@react-navigation/native";
-import AuthStack from "./navigation/AuthStack";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+} from '@expo-google-fonts/poppins';
+import { NavigationContainer } from '@react-navigation/native';
+import AuthStack from './navigation/AuthStack';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { AppointmentContext } from './context/AppointmentContext';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -41,10 +42,10 @@ export default function App() {
 
   const getAuthToken = async () => {
     try {
-      const token = await AsyncStorage.getItem("authToken");
+      const token = await AsyncStorage.getItem('authToken');
       return token; // Return the token or null if it doesn't exist
     } catch (err) {
-      console.log("Error", err);
+      console.log('Error', err);
       return null;
     }
   };
@@ -72,9 +73,11 @@ export default function App() {
     <>
       <NavigationContainer>
         <UserContext>
-          {/* <AppStack /> */}
-          {/* <AuthStack /> */}
-          <CheckuserLogin />
+          <AppointmentContext>
+            {/* <AppStack /> */}
+            {/* <AuthStack /> */}
+            <CheckuserLogin />
+          </AppointmentContext>
         </UserContext>
       </NavigationContainer>
     </>
@@ -84,8 +87,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });

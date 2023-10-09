@@ -1,17 +1,24 @@
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigation, useRoute } from '@react-navigation/core';
+import { Appointment } from '../context/AppointmentContext';
 
 const PackageCards = () => {
   const route = useRoute();
   const packages = route.params.packages;
   const navigation = useNavigation();
-
+  const { appointmentDetails, setAppointmentDetails } = useContext(Appointment);
   return (
     <View>
       {packages.map((item, key) => (
         <Pressable
-          onPress={() => navigation.navigate('SelectStylist')}
+          onPress={() => {
+            navigation.navigate('SelectStylist');
+            setAppointmentDetails([
+              ...appointmentDetails,
+              { package: item.name },
+            ]);
+          }}
           key={key}
           style={{ alignItems: 'center', justifyContent: 'center', margin: 10 }}
         >

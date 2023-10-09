@@ -8,6 +8,7 @@ import AppStack from './AppStack';
 import ProfileScreen from '../screens/ProfileScreen';
 import SelectPackageScreen from '../screens/SelectPackageScreen';
 import SelectStylistScreen from '../screens/SelectStylistScreen';
+import SelectTimeScreen from '../screens/SelectTimeScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -37,6 +38,11 @@ const AuthStack = () => {
       <Stack.Screen
         name="SelectStylist"
         component={SelectStylistScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="SelectTime"
+        component={SelectTimeScreen}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

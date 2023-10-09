@@ -1,14 +1,13 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import React, { useLayoutEffect } from 'react';
+import React, { useContext, useLayoutEffect } from 'react';
 import Header from '../components/Header';
 import { FontAwesome } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import CategoryCards from '../components/CategoryCards';
+import { Appointment } from '../context/AppointmentContext';
 
 const AppointmentScreen = () => {
-  const navigation = useNavigation();
-
   return (
     <SafeAreaView style={{ backgroundColor: '#F7F0FC', height: 1000 }}>
       <Header title={'Make an Appointment'} />

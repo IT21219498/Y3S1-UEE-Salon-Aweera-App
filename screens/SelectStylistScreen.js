@@ -1,11 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import Header from '../components/Header';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import StylistCard from '../components/StylistCard';
+import { Appointment } from '../context/AppointmentContext';
 
 const SelectStylistScreen = () => {
   const navigation = useNavigation();
+  const { appointmentDetails, setAppointmentDetails } = useContext(Appointment);
   return (
     <View>
       <Header title={'Make an Appointment'} />
@@ -18,7 +21,10 @@ const SelectStylistScreen = () => {
         }}
       >
         <Ionicons
-          onPress={() => navigation.goBack()}
+          onPress={() => {
+            navigation.goBack();
+            setAppointmentDetails((prevDetails) => prevDetails.slice(0, -1));
+          }}
           style={{ marginRight: 5 }}
           name="arrow-back-outline"
           size={34}
@@ -36,6 +42,7 @@ const SelectStylistScreen = () => {
           marginBottom: 10,
         }}
       />
+      <StylistCard />
     </View>
   );
 };
