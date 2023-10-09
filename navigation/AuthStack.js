@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
@@ -9,7 +9,7 @@ import ProfileScreen from '../screens/ProfileScreen';
 import SelectPackageScreen from '../screens/SelectPackageScreen';
 import SelectStylistScreen from '../screens/SelectStylistScreen';
 import SelectTimeScreen from '../screens/SelectTimeScreen';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const Stack = createNativeStackNavigator();
 
 const AuthStack = () => {

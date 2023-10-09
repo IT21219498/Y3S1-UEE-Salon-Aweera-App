@@ -1,4 +1,11 @@
-import { Pressable, StyleSheet, Text, View, Image } from 'react-native';
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  SafeAreaView,
+} from 'react-native';
 import React, { useContext } from 'react';
 import stylist from '../data/stylist';
 import { useNavigation } from '@react-navigation/core';
@@ -10,7 +17,7 @@ const StylistCard = () => {
   const { appointmentDetails, setAppointmentDetails } = useContext(Appointment);
 
   return (
-    <View>
+    <SafeAreaView>
       {stylistData.map((item, key) => (
         <Pressable
           onPress={() => {
@@ -54,7 +61,7 @@ const StylistCard = () => {
           </Text>
         </Pressable>
       ))}
-    </View>
+    </SafeAreaView>
   );
 };
 

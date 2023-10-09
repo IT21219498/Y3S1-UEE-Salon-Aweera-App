@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import React, { useContext } from 'react';
 import Header from '../components/Header';
 import PackageCards from '../components/PackageCards';
@@ -11,7 +11,7 @@ const SelectPackageScreen = () => {
   const { appointmentDetails, setAppointmentDetails } = useContext(Appointment);
   console.log(appointmentDetails);
   return (
-    <View>
+    <SafeAreaView>
       <Header title={'Make an Appointment'} />
       <View
         style={{
@@ -46,7 +46,7 @@ const SelectPackageScreen = () => {
         }}
       />
       <PackageCards />
-    </View>
+    </SafeAreaView>
   );
 };
 

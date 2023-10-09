@@ -1,11 +1,12 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import React, { useContext, useLayoutEffect } from 'react';
+import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import Header from '../components/Header';
 import { FontAwesome } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import CategoryCards from '../components/CategoryCards';
 import { Appointment } from '../context/AppointmentContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const AppointmentScreen = () => {
   return (

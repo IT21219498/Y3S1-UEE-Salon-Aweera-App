@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import React, { useContext } from 'react';
 import Header from '../components/Header';
 import { Ionicons } from '@expo/vector-icons';
@@ -10,7 +10,7 @@ const SelectStylistScreen = () => {
   const navigation = useNavigation();
   const { appointmentDetails, setAppointmentDetails } = useContext(Appointment);
   return (
-    <View>
+    <SafeAreaView>
       <Header title={'Make an Appointment'} />
       <View
         style={{
@@ -43,7 +43,7 @@ const SelectStylistScreen = () => {
         }}
       />
       <StylistCard />
-    </View>
+    </SafeAreaView>
   );
 };
 

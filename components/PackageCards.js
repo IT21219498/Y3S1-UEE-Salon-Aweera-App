@@ -1,4 +1,11 @@
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import {
+  Image,
+  Pressable,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import React, { useContext } from 'react';
 import { useNavigation, useRoute } from '@react-navigation/core';
 import { Appointment } from '../context/AppointmentContext';
@@ -9,7 +16,7 @@ const PackageCards = () => {
   const navigation = useNavigation();
   const { appointmentDetails, setAppointmentDetails } = useContext(Appointment);
   return (
-    <View>
+    <SafeAreaView>
       {packages.map((item, key) => (
         <Pressable
           onPress={() => {
@@ -46,7 +53,7 @@ const PackageCards = () => {
           </Text>
         </Pressable>
       ))}
-    </View>
+    </SafeAreaView>
   );
 };
 

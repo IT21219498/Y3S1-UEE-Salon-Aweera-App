@@ -1,8 +1,16 @@
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
-import React, { useContext, useState } from 'react';
+import {
+  Image,
+  Pressable,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+import React, { useContext, useEffect, useState } from 'react';
 import categories from '../data/category';
 import { useNavigation } from '@react-navigation/native';
 import { Appointment } from '../context/AppointmentContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const CategoryCards = () => {
   const catData = categories;
@@ -10,7 +18,7 @@ const CategoryCards = () => {
   const { appointmentDetails, setAppointmentDetails } = useContext(Appointment);
 
   return (
-    <View>
+    <SafeAreaView>
       {catData.map((item, key) => (
         <Pressable
           onPress={() => {
@@ -49,7 +57,7 @@ const CategoryCards = () => {
           </Text>
         </Pressable>
       ))}
-    </View>
+    </SafeAreaView>
   );
 };
 
