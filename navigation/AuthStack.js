@@ -10,6 +10,7 @@ import SelectPackageScreen from '../screens/SelectPackageScreen';
 import SelectStylistScreen from '../screens/SelectStylistScreen';
 import SelectTimeScreen from '../screens/SelectTimeScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import BookingScreen from '../screens/BookingScreen';
 const Stack = createNativeStackNavigator();
 
 const AuthStack = () => {
@@ -43,6 +44,12 @@ const AuthStack = () => {
       <Stack.Screen
         name="SelectTime"
         component={SelectTimeScreen}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="Booking"
+        component={BookingScreen}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
