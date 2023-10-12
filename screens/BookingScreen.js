@@ -6,6 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { Appointment } from '../context/AppointmentContext';
 import { Card } from '@rneui/themed';
+import axios from 'axios';
 
 const BookingScreen = () => {
   const navigation = useNavigation();
@@ -15,6 +16,26 @@ const BookingScreen = () => {
   const stylist = appointmentDetails[2].stylist;
   const date = appointmentDetails[3].date;
   const time = appointmentDetails[3].time;
+
+  const handleClickOnNext = async () => {
+    try {
+      console.log('pressed');
+      await axios
+        .post('http://192.168.1.25:5000/appointment/create', {
+          category: category,
+          package: packageName,
+          stylist: stylist,
+          date: date,
+          time: time,
+        })
+        .then((res) => {
+          navigation.navigate('Home');
+          setAppointmentDetails([]);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <SafeAreaView>
       <Header title={'Make an Appointment'} />
@@ -107,6 +128,7 @@ const BookingScreen = () => {
 
       <View>
         <Pressable
+          onPress={handleClickOnNext}
           style={{
             margin: 25,
             backgroundColor: '#735D7F',
