@@ -9,9 +9,10 @@ import ProfileScreen from '../screens/ProfileScreen';
 import SelectPackageScreen from '../screens/SelectPackageScreen';
 import SelectStylistScreen from '../screens/SelectStylistScreen';
 import SelectTimeScreen from '../screens/SelectTimeScreen';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import BookingScreen from '../screens/BookingScreen';
 import FeedbackSummaryScreen from '../screens/FeedbackSummaryScreen';
+import PastAppointmentsScreen from '../screens/PastAppointmentsScreen';
+
 const Stack = createNativeStackNavigator();
 
 const AuthStack = () => {
@@ -56,6 +57,11 @@ const AuthStack = () => {
       <Stack.Screen
         name="FeedbackSummary"
         component={FeedbackSummaryScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="PastAppointments"
+        component={PastAppointmentsScreen}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

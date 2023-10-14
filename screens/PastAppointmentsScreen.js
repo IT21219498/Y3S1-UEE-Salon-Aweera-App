@@ -1,9 +1,9 @@
-import { Pressable, StyleSheet, Text, View, SafeAreaView } from 'react-native';
-import Header from '../components/Header';
+import { Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
+import Header from '../components/Header';
 import { useNavigation } from '@react-navigation/native';
 
-const MyAppointmentsScreen = () => {
+const PastAppointmentsScreen = () => {
   const navigate = useNavigation();
 
   return (
@@ -16,7 +16,10 @@ const MyAppointmentsScreen = () => {
           flexDirection: 'row',
         }}
       >
-        <View
+        <Pressable
+          onPress={() => {
+            navigate.navigate('MyAppointments');
+          }}
           style={{
             width: '50%',
             backgroundColor: '#AB83A1',
@@ -24,7 +27,7 @@ const MyAppointmentsScreen = () => {
             flex: 1,
             justifyContent: 'center',
             borderWidth: 2,
-            borderColor: 'black',
+            borderColor: '#735D7F',
           }}
         >
           <Text
@@ -37,18 +40,15 @@ const MyAppointmentsScreen = () => {
           >
             Upcoming
           </Text>
-        </View>
-        <Pressable
-          onPress={() => {
-            navigate.navigate('PastAppointments');
-          }}
+        </Pressable>
+        <View
           style={{
             width: '50%',
             backgroundColor: '#c9b4d9',
             height: 60,
             flex: 1,
             justifyContent: 'center',
-            borderColor: '#735D7F',
+            borderColor: 'black',
             borderWidth: 2,
           }}
         >
@@ -62,7 +62,7 @@ const MyAppointmentsScreen = () => {
           >
             Past
           </Text>
-        </Pressable>
+        </View>
       </View>
       <View
         style={{
@@ -112,7 +112,7 @@ const MyAppointmentsScreen = () => {
                 fontWeight: 'bold',
               }}
             >
-              2023/11/20
+              2023/10/15
             </Text>
           </View>
           <View style={{ width: '40%' }}>
@@ -134,7 +134,7 @@ const MyAppointmentsScreen = () => {
                 fontWeight: 'bold',
               }}
             >
-              15.30 PM
+              17.00 PM
             </Text>
           </View>
           <View style={{ width: '20%' }}>
@@ -143,7 +143,6 @@ const MyAppointmentsScreen = () => {
                 fontSize: 15,
                 fontWeight: 'bold',
                 margin: 5,
-
                 color: 'gray',
               }}
             >
@@ -157,7 +156,7 @@ const MyAppointmentsScreen = () => {
                 fontWeight: 'bold',
               }}
             >
-              #211
+              #105
             </Text>
           </View>
         </View>
@@ -181,6 +180,7 @@ const MyAppointmentsScreen = () => {
               style={{
                 fontSize: 15,
                 fontWeight: 'bold',
+
                 margin: 5,
                 color: 'gray',
               }}
@@ -195,7 +195,7 @@ const MyAppointmentsScreen = () => {
                 fontWeight: 'bold',
               }}
             >
-              Hair coloring
+              Hair Cut
             </Text>
           </View>
           <View style={{ width: '50%' }}>
@@ -207,7 +207,7 @@ const MyAppointmentsScreen = () => {
                 color: 'gray',
               }}
             >
-              Stylist{' '}
+              Styist{' '}
             </Text>
             <Text
               style={{
@@ -217,7 +217,7 @@ const MyAppointmentsScreen = () => {
                 fontWeight: 'bold',
               }}
             >
-              Ravini Perera
+              Kamal Fernando
             </Text>
           </View>
         </View>
@@ -226,6 +226,6 @@ const MyAppointmentsScreen = () => {
   );
 };
 
-export default MyAppointmentsScreen;
+export default PastAppointmentsScreen;
 
 const styles = StyleSheet.create({});
