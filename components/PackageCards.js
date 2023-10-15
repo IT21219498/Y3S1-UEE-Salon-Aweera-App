@@ -15,6 +15,7 @@ const PackageCards = () => {
   const packages = route.params.packages;
   const navigation = useNavigation();
   const { appointmentDetails, setAppointmentDetails } = useContext(Appointment);
+  console.log(packages);
   return (
     <SafeAreaView>
       {packages.map((item, key) => (

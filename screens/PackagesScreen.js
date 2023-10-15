@@ -9,14 +9,16 @@ import {
 } from 'react-native';
 import Header from '../components/Header';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
-import { useLayoutEffect, useState } from 'react';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { useCallback, useState } from 'react';
 import { FontAwesome } from '@expo/vector-icons';
 import CategoryCards from '../components/CategoryCards';
+import axios from 'axios';
 
 const PackagesScreen = () => {
   const navigation = useNavigation();
   const [openModal, setOpenModal] = useState(false);
+  const [categories, setCategories] = useState([]);
 
   const handleCreateCategory = () => {
     setOpenModal(true);
@@ -25,6 +27,21 @@ const PackagesScreen = () => {
   const handleSaveCategory = () => {
     setOpenModal(false);
   };
+
+  const fetchPackages = async () => {
+    try {
+      const response = await axios.get('http://192.168.1.25:5000/category');
+      setCategories(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchPackages();
+    }, [])
+  );
 
   return (
     <SafeAreaView style={{ backgroundColor: '#F7F0FC', height: 1000 }}>

@@ -8,18 +8,37 @@ import {
 } from 'react-native';
 import React, { useContext, useEffect, useState } from 'react';
 import categories from '../data/category';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { Appointment } from '../context/AppointmentContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+import { useCallback } from 'react';
 
 const CategoryCards = () => {
   const catData = categories;
   const navigation = useNavigation();
   const { appointmentDetails, setAppointmentDetails } = useContext(Appointment);
+  const [categories, setCategories] = useState([]);
 
+  const fetchPackages = async () => {
+    try {
+      const response = await axios.get('http://192.168.1.25:5000/category');
+      setCategories(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchPackages();
+    }, [])
+  );
+
+  console.log(categories);
   return (
     <SafeAreaView>
-      {catData.map((item, key) => (
+      {categories.map((item, key) => (
         <Pressable
           onPress={() => {
             navigation.navigate('SelectPackage', {
