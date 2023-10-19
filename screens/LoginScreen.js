@@ -9,13 +9,15 @@ import {
   Pressable,
   Alert,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { MaterialIcons, AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
+import { UserContext, UserType } from "../context/UserContext";
 
 const LoginScreen = () => {
+  const { loginUser, setLoginUser } = useContext(UserType);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigation = useNavigation();
@@ -25,7 +27,7 @@ const LoginScreen = () => {
         const token = await AsyncStorage.getItem("authToken");
         if (token) {
           setTimeout(() => {
-            navigation.replace("Main");
+            navigation.replace("Main" && "Drawer");
           }, 400);
         }
       } catch (err) {
@@ -36,6 +38,35 @@ const LoginScreen = () => {
     checkLoginStatus();
   }, []);
 
+  // useEffect(() => {
+  //   const checkLoginStatus = async () => {
+  //     const token = await AsyncStorage.getItem("authToken");
+
+  //     if (token) {
+  //       axios({
+  //         method: "get",
+  //         url: `http://192.168.1.6:5000/me`,
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       })
+  //         .then((res) => {
+  //           setUserData(res.data);
+  //           if (!res.error) {
+  //             setTimeout(() => {
+  //               navigation.replace("Main" && "Drawer");
+  //             }, 400);
+  //           }
+  //         })
+  //         .catch((err) => {
+  //           console.log("Error", err);
+  //         });
+  //     }
+  //   };
+
+  //   checkLoginStatus();
+  // }, []);
+
   const handleLogin = () => {
     const user = {
       email: email,
@@ -44,12 +75,14 @@ const LoginScreen = () => {
 
     axios({
       method: "post",
-      url: "http://192.168.1.6:5000/login",
+      url: "http://192.168.1.25:5000/login",
       data: user,
     })
       .then((res) => {
         console.log(res);
         const token = res.data.token;
+        setLoginUser(token);
+        // console.log(res);
 
         AsyncStorage.setItem("authToken", token);
         navigation.navigate("Main");
