@@ -15,17 +15,20 @@ const PackageCards = (props) => {
   const packages = route.params.packages;
   const navigation = useNavigation();
   const { appointmentDetails, setAppointmentDetails } = useContext(Appointment);
-  console.log(packages);
+  const isAppointment = props.isAppointment;
+
+  const handleNavigation = (isAppointment, item) => {
+    if (isAppointment) {
+      navigation.navigate('SelectStylist');
+      setAppointmentDetails([...appointmentDetails, { package: item.name }]);
+    }
+  };
   return (
     <SafeAreaView>
       {packages.map((item, key) => (
         <Pressable
           onPress={() => {
-            navigation.navigate('SelectStylist');
-            setAppointmentDetails([
-              ...appointmentDetails,
-              { package: item.name },
-            ]);
+            handleNavigation(isAppointment, item);
           }}
           key={key}
           style={{ alignItems: 'center', justifyContent: 'center', margin: 10 }}

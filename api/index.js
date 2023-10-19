@@ -16,6 +16,7 @@ app.use(bodyParser.json());
 
 app.use('/appointment', require('./routes/appointment'));
 app.use('/category', require('./routes/category'));
+app.use('/feedback', require('./routes/feedback'));
 const jwt = require('jsonwebtoken');
 
 mongoose

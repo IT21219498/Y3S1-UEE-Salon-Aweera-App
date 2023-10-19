@@ -18,8 +18,6 @@ categoryRouter.post('/create', async (req, res) => {
   res.status(201).send({ message: 'New Category Created', category });
 });
 
-module.exports = categoryRouter;
-
 categoryRouter.put('/add-package/:id', async (req, res) => {
   const category = await Category.findById(req.params.id);
 
@@ -33,3 +31,5 @@ categoryRouter.put('/add-package/:id', async (req, res) => {
     res.send({ message: 'Category Updated', category: updatedCategory });
   }
 });
+
+module.exports = categoryRouter;

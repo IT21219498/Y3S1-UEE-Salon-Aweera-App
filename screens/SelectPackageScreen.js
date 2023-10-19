@@ -9,7 +9,7 @@ import { Appointment } from '../context/AppointmentContext';
 const SelectPackageScreen = () => {
   const navigation = useNavigation();
   const { appointmentDetails, setAppointmentDetails } = useContext(Appointment);
-
+  const isAppointment = true;
   return (
     <SafeAreaView>
       <Header title={'Make an Appointment'} />
@@ -45,7 +45,7 @@ const SelectPackageScreen = () => {
           marginBottom: 10,
         }}
       />
-      <PackageCards />
+      <PackageCards isAppointment={isAppointment} />
     </SafeAreaView>
   );
 };

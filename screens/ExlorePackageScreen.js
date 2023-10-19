@@ -22,7 +22,7 @@ const ExlorePackageScreen = () => {
   const [imageUrl, setImageUrl] = useState('');
   const route = useRoute();
   const id = route.params.id;
-
+  const isAppointment = false;
   const handleCreatePackage = () => {
     setOpenModal(true);
   };
@@ -234,7 +234,7 @@ const ExlorePackageScreen = () => {
           </View>
         </View>
       </Modal>
-      <PackageCards />
+      <PackageCards isAppointment={isAppointment} />
     </SafeAreaView>
   );
 };
