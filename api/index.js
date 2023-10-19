@@ -14,6 +14,9 @@ app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+app.use("/appointment", require("./routes/appointment"));
+app.use("/category", require("./routes/category"));
+app.use("/feedback", require("./routes/feedback"));
 const jwt = require("jsonwebtoken");
 
 mongoose
@@ -147,13 +150,16 @@ app.post("/login", async (req, res) => {
 //endpoint to create a new post
 app.post("/create-post", async (req, res) => {
   try {
-    const { content, userId } = req.body;
+    const { content, userId, PostImage } = req.body;
 
     const newPostData = {
       user: userId,
     };
     if (content) {
       newPostData.content = content;
+    }
+    if (PostImage) {
+      newPostData.PostImage = PostImage;
     }
 
     const newPost = new Post(newPostData);
@@ -226,7 +232,7 @@ app.put("/posts/:postId/:userId/unlike", async (req, res) => {
 app.get("/get-posts", async (req, res) => {
   try {
     const posts = await Post.find()
-      .populate("user", "name")
+      .populate("user", ["name", "profilePicture"])
       .sort({ createdAt: -1 });
 
     res.status(200).json(posts);
@@ -251,5 +257,32 @@ app.get("/profile/:userId", async (req, res) => {
     return res.status(200).json({ user });
   } catch (err) {
     res.status(500).json({ message: "Error while getting the profile data" });
+  }
+});
+
+//endpoint for updating the profile data
+app.put("/update-user/:userId", async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const { name, ProfilePicture } = req.body;
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    if (name) {
+      user.name = name;
+    }
+    if (ProfilePicture) {
+      user.profilePicture = ProfilePicture;
+    }
+
+    await user.save();
+
+    return res.status(200).json({ message: "User updated successfully" });
+  } catch (err) {
+    res.status(500).json({ message: "Error while updating the profile data" });
   }
 });
