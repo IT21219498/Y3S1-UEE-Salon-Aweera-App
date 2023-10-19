@@ -12,6 +12,7 @@ import SelectTimeScreen from '../screens/SelectTimeScreen';
 import BookingScreen from '../screens/BookingScreen';
 import FeedbackSummaryScreen from '../screens/FeedbackSummaryScreen';
 import PastAppointmentsScreen from '../screens/PastAppointmentsScreen';
+import ExlorePackageScreen from '../screens/ExlorePackageScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -62,6 +63,11 @@ const AuthStack = () => {
       <Stack.Screen
         name="PastAppointments"
         component={PastAppointmentsScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ExplorePackages"
+        component={ExlorePackageScreen}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

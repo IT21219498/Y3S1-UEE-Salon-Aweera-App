@@ -14,12 +14,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { useCallback } from 'react';
 
-const CategoryCards = () => {
+const CategoryCards = (props) => {
+  const isAppointment = props.isAppointment;
   const catData = categories;
   const navigation = useNavigation();
   const { appointmentDetails, setAppointmentDetails } = useContext(Appointment);
   const [categories, setCategories] = useState([]);
-
+  console.log(isAppointment);
   const fetchPackages = async () => {
     try {
       const response = await axios.get('http://192.168.1.25:5000/category');
@@ -35,19 +36,24 @@ const CategoryCards = () => {
     }, [])
   );
 
+  const handleNavigation = (isAppointment, item) => {
+    if (isAppointment) {
+      navigation.navigate('SelectPackage', {
+        packages: item.packages,
+      });
+      setAppointmentDetails([...appointmentDetails, { category: item.name }]);
+    } else {
+      navigation.navigate('ExplorePackages', { packages: item.packages });
+    }
+  };
+
   console.log(categories);
   return (
     <SafeAreaView>
       {categories.map((item, key) => (
         <Pressable
           onPress={() => {
-            navigation.navigate('SelectPackage', {
-              packages: item.packages,
-            });
-            setAppointmentDetails([
-              ...appointmentDetails,
-              { category: item.name },
-            ]);
+            handleNavigation(isAppointment, item);
           }}
           style={{ alignItems: 'center', justifyContent: 'center', margin: 10 }}
           key={key}

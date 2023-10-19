@@ -9,6 +9,7 @@ import { Appointment } from '../context/AppointmentContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const AppointmentScreen = () => {
+  const isAppointment = true;
   return (
     <SafeAreaView style={{ backgroundColor: '#F7F0FC', height: 1000 }}>
       <Header title={'Make an Appointment'} />
@@ -25,7 +26,7 @@ const AppointmentScreen = () => {
           marginBottom: 10,
         }}
       />
-      <CategoryCards />
+      <CategoryCards isAppointment={isAppointment} />
     </SafeAreaView>
   );
 };
