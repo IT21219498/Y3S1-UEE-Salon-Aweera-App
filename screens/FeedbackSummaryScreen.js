@@ -9,13 +9,15 @@ import {
 import React from 'react';
 import Header from '../components/Header';
 import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 const FeedbackSummaryScreen = () => {
   const navigation = useNavigation();
   const date = new Date();
   const fDate =
     date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
   const fTime = date.getHours() + ':' + date.getMinutes();
+  const route = useRoute();
+  const feedbackId = route.params.feedbackId;
   return (
     <SafeAreaView style={{ backgroundColor: '#F7F0FC', height: 1000 }}>
       <Header title={'FeedBack'} />
@@ -82,7 +84,7 @@ const FeedbackSummaryScreen = () => {
           <Text style={{ fontSize: 20, fontWeight: '400' }}>
             FeedBack Id :{' '}
           </Text>
-          <Text style={{ fontSize: 20, fontWeight: '400' }}>001</Text>
+          <Text style={{ fontSize: 20, fontWeight: '400' }}>{feedbackId}</Text>
         </View>
         <View
           style={{ alignSelf: 'center', marginTop: 10, flexDirection: 'row' }}

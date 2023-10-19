@@ -19,7 +19,6 @@ const BookingScreen = () => {
 
   const handleClickOnNext = async () => {
     try {
-      console.log('pressed');
       await axios
         .post('http://192.168.1.25:5000/appointment/create', {
           category: category,

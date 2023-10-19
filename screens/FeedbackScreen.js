@@ -10,6 +10,7 @@ import {
 import React, { useState } from 'react';
 import Header from '../components/Header';
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
 
 const FeedbackScreen = () => {
   const [name, onChangeName] = useState('');
@@ -17,8 +18,24 @@ const FeedbackScreen = () => {
   const [feedback, onChangefeedback] = useState('');
   const navigate = useNavigation();
 
-  const handleSubmit = () => {
-    navigate.navigate('FeedbackSummary');
+  const handleSubmit = async () => {
+    try {
+      const { data } = await axios.post(
+        'http://192.168.1.25:5000/feedback/create',
+        {
+          customerName: name,
+          contactNo: number,
+          feedback: feedback,
+        }
+      );
+      const fid = data.feedback.feedbackId;
+      console.log(fid);
+      navigate.navigate('FeedbackSummary', {
+        feedbackId: fid,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <ScrollView
