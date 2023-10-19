@@ -1,12 +1,16 @@
-import { createContext, useState } from "react";
+import { createContext, useState } from 'react';
 
 const UserType = createContext();
 
 const UserContext = ({ children }) => {
-  const [userId, setUserId] = useState("");
+  const [userId, setUserId] = useState('');
+  const [loginUser, setLoginUser] = useState(null);
+  const [user, setUser] = useState('');
 
   return (
-    <UserType.Provider value={{ userId, setUserId }}>
+    <UserType.Provider
+      value={{ userId, setUserId, loginUser, setLoginUser, user, setUser }}
+    >
       {children}
     </UserType.Provider>
   );
