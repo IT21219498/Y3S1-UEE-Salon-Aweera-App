@@ -1,12 +1,11 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native';
-import React, { useContext } from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import Header from '../components/Header';
-import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
-import { Appointment } from '../context/AppointmentContext';
-import { Card } from '@rneui/themed';
-import axios from 'axios';
+import { Pressable, StyleSheet, Text, View, SafeAreaView } from "react-native";
+import React, { useContext } from "react";
+import Header from "../components/Header";
+import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import { Appointment } from "../context/AppointmentContext";
+import { Card } from "@rneui/themed";
+import axios from "axios";
 
 const BookingScreen = () => {
   const navigation = useNavigation();
@@ -20,7 +19,7 @@ const BookingScreen = () => {
   const handleClickOnNext = async () => {
     try {
       await axios
-        .post('http://192.168.1.25:5000/appointment/create', {
+        .post("http://192.168.1.25:5000/appointment/create", {
           category: category,
           package: packageName,
           stylist: stylist,
@@ -28,7 +27,7 @@ const BookingScreen = () => {
           time: time,
         })
         .then((res) => {
-          navigation.navigate('Home');
+          navigation.navigate("Home");
           setAppointmentDetails([]);
         });
     } catch (error) {
@@ -37,13 +36,13 @@ const BookingScreen = () => {
   };
   return (
     <SafeAreaView>
-      <Header title={'Make an Appointment'} />
+      <Header title={"Make an Appointment"} />
       <View
         style={{
-          alignItems: 'left',
+          alignItems: "left",
           marginTop: 15,
           marginLeft: 5,
-          flexDirection: 'row',
+          flexDirection: "row",
         }}
       >
         <Ionicons
@@ -52,74 +51,74 @@ const BookingScreen = () => {
             setAppointmentDetails((prevDetails) => prevDetails.slice(0, -1));
           }}
           style={{ marginRight: 5 }}
-          name="arrow-back-outline"
+          name='arrow-back-outline'
           size={34}
-          color="Black"
+          color='Black'
         />
-        <Text style={{ fontSize: 25, fontWeight: 'bold' }}>
+        <Text style={{ fontSize: 25, fontWeight: "bold" }}>
           Appointment Summary
         </Text>
       </View>
       <View
         style={{
           borderWidth: 0.5,
-          borderColor: 'black',
+          borderColor: "black",
           marginTop: 15,
           marginBottom: 10,
         }}
       />
       <View
         style={{
-          backgroundColor: 'white',
-          width: '90%',
-          borderColor: '#AB83A1',
+          backgroundColor: "white",
+          width: "90%",
+          borderColor: "#AB83A1",
           borderWidth: 2,
           minHeight: 400,
           marginTop: 15,
           margin: 5,
-          alignSelf: 'center',
+          alignSelf: "center",
           borderRadius: 15,
         }}
       >
-        <Card.Divider color="#AB83A1">
-          <Card.Title style={{ fontSize: 25, color: 'black', marginTop: 10 }}>
+        <Card.Divider color='#AB83A1'>
+          <Card.Title style={{ fontSize: 25, color: "black", marginTop: 10 }}>
             Summary
           </Card.Title>
         </Card.Divider>
         <View
           style={{
             margin: 10,
-            flexDirection: 'row',
+            flexDirection: "row",
             marginLeft: 20,
             marginTop: 20,
           }}
         >
-          <Text style={{ fontSize: 18, fontWeight: 'bold', margin: 5 }}>
-            Category :{' '}
+          <Text style={{ fontSize: 18, fontWeight: "bold", margin: 5 }}>
+            Category :{" "}
           </Text>
           <Text style={{ fontSize: 18, margin: 5 }}>{category} </Text>
         </View>
-        <View style={{ margin: 10, flexDirection: 'row', marginLeft: 20 }}>
-          <Text style={{ fontSize: 18, fontWeight: 'bold', margin: 5 }}>
-            Package :{' '}
+        <View style={{ margin: 10, flexDirection: "row", marginLeft: 20 }}>
+          <Text style={{ fontSize: 18, fontWeight: "bold", margin: 5 }}>
+            Package :{" "}
           </Text>
           <Text style={{ fontSize: 18, margin: 5 }}>{packageName} </Text>
         </View>
-        <View style={{ margin: 10, flexDirection: 'row', marginLeft: 20 }}>
-          <Text style={{ fontSize: 18, fontWeight: 'bold', margin: 5 }}>
-            Stylist :{' '}
+        <View style={{ margin: 10, flexDirection: "row", marginLeft: 20 }}>
+          <Text style={{ fontSize: 18, fontWeight: "bold", margin: 5 }}>
+            Stylist :{" "}
           </Text>
           <Text style={{ fontSize: 18, margin: 5 }}>{stylist} </Text>
         </View>
-        <View style={{ margin: 10, flexDirection: 'row', marginLeft: 20 }}>
-          <Text style={{ fontSize: 18, fontWeight: 'bold', margin: 5 }}>
-            Date :{' '}
+        <View style={{ margin: 10, flexDirection: "row", marginLeft: 20 }}>
+          <Text style={{ fontSize: 18, fontWeight: "bold", margin: 5 }}>
+            Date :{" "}
           </Text>
           <Text style={{ fontSize: 18, margin: 5 }}>{date} </Text>
         </View>
-        <View style={{ margin: 10, flexDirection: 'row', marginLeft: 20 }}>
-          <Text style={{ fontSize: 18, fontWeight: 'bold', margin: 5 }}>
-            Time :{' '}
+        <View style={{ margin: 10, flexDirection: "row", marginLeft: 20 }}>
+          <Text style={{ fontSize: 18, fontWeight: "bold", margin: 5 }}>
+            Time :{" "}
           </Text>
           <Text style={{ fontSize: 18, margin: 5 }}>{time} </Text>
         </View>
@@ -130,18 +129,18 @@ const BookingScreen = () => {
           onPress={handleClickOnNext}
           style={{
             margin: 25,
-            backgroundColor: '#735D7F',
+            backgroundColor: "#735D7F",
             borderRadius: 10,
             padding: 6,
             width: 250,
-            alignSelf: 'center',
+            alignSelf: "center",
             marginTop: 50,
             borderWidth: 2,
-            borderColor: '#AB83A1',
+            borderColor: "#AB83A1",
           }}
         >
           <Text
-            style={{ fontSize: 25, textAlign: 'center', fontWeight: 'bold' }}
+            style={{ fontSize: 25, textAlign: "center", fontWeight: "bold" }}
           >
             Make Appointment
           </Text>

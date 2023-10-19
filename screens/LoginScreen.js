@@ -8,35 +8,64 @@ import {
   TextInput,
   Pressable,
   Alert,
-} from 'react-native';
-import React, { useContext, useEffect, useState } from 'react';
-import { MaterialIcons, AntDesign } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
-import { UserContext, UserType } from '../context/UserContext';
+} from "react-native";
+import React, { useContext, useEffect, useState } from "react";
+import { MaterialIcons, AntDesign } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
+import { UserContext, UserType } from "../context/UserContext";
 
 const LoginScreen = () => {
   const { loginUser, setLoginUser } = useContext(UserType);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigation = useNavigation();
   useEffect(() => {
     const checkLoginStatus = async () => {
       try {
-        const token = await AsyncStorage.getItem('authToken');
+        const token = await AsyncStorage.getItem("authToken");
         if (token) {
           setTimeout(() => {
-            navigation.replace('Main' && 'Drawer');
+            navigation.replace("Main" && "Drawer");
           }, 400);
         }
       } catch (err) {
-        console.log('Error', err);
+        console.log("Error", err);
       }
     };
 
     checkLoginStatus();
   }, []);
+
+  // useEffect(() => {
+  //   const checkLoginStatus = async () => {
+  //     const token = await AsyncStorage.getItem("authToken");
+
+  //     if (token) {
+  //       axios({
+  //         method: "get",
+  //         url: `http://192.168.1.6:5000/me`,
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       })
+  //         .then((res) => {
+  //           setUserData(res.data);
+  //           if (!res.error) {
+  //             setTimeout(() => {
+  //               navigation.replace("Main" && "Drawer");
+  //             }, 400);
+  //           }
+  //         })
+  //         .catch((err) => {
+  //           console.log("Error", err);
+  //         });
+  //     }
+  //   };
+
+  //   checkLoginStatus();
+  // }, []);
 
   const handleLogin = () => {
     const user = {
@@ -45,8 +74,8 @@ const LoginScreen = () => {
     };
 
     axios({
-      method: 'post',
-      url: 'http://192.168.1.25:5000/login',
+      method: "post",
+      url: "http://192.168.1.25:5000/login",
       data: user,
     })
       .then((res) => {
@@ -55,44 +84,44 @@ const LoginScreen = () => {
         setLoginUser(token);
         // console.log(res);
 
-        AsyncStorage.setItem('authToken', token);
-        navigation.navigate('Main');
+        AsyncStorage.setItem("authToken", token);
+        navigation.navigate("Main");
       })
       .catch((err) => {
-        Alert.alert('Login failed', 'Something went wrong');
-        console.log('Error', err);
+        Alert.alert("Login failed", "Something went wrong");
+        console.log("Error", err);
       });
   };
 
   return (
     <SafeAreaView
-      style={{ flex: 1, backgroundColor: '#F7F0FC', alignItems: 'center' }}
+      style={{ flex: 1, backgroundColor: "#F7F0FC", alignItems: "center" }}
     >
       <View style={{ marginTop: 50, marginBottom: 100 }}>
         <Image
           style={{
             width: 200,
             height: 100,
-            resizeMode: 'contain',
-            tintColor: 'black',
+            resizeMode: "contain",
+            tintColor: "black",
           }}
-          source={require('../assets/aweera.png')}
+          source={require("../assets/aweera.png")}
         />
       </View>
 
       <KeyboardAvoidingView>
-        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-          <Text style={{ fontSize: 17, fontWeight: 'bold', marginTop: 20 }}>
+        <View style={{ alignItems: "center", justifyContent: "center" }}>
+          <Text style={{ fontSize: 17, fontWeight: "bold", marginTop: 20 }}>
             Login to Your Account
           </Text>
         </View>
         <View style={{ marginTop: 40 }}>
           <View
             style={{
-              flexDirection: 'row',
-              alignItems: 'center',
+              flexDirection: "row",
+              alignItems: "center",
               gap: 5,
-              borderColor: '#D0D0D0',
+              borderColor: "#D0D0D0",
               borderWidth: 1,
               paddingVertical: 5,
               borderRadius: 5,
@@ -100,31 +129,31 @@ const LoginScreen = () => {
           >
             <MaterialIcons
               style={{ marginLeft: 8 }}
-              name="email"
+              name='email'
               size={24}
-              color="gray"
+              color='gray'
             />
             <TextInput
               value={email}
               onChangeText={(text) => setEmail(text)}
-              placeholderTextColor={'gray'}
+              placeholderTextColor={"gray"}
               style={{
-                color: 'gray',
+                color: "gray",
                 marginVertical: 10,
                 width: 300,
                 fontSize: email ? 16 : 16,
               }}
-              placeholder="Enter your email"
+              placeholder='Enter your email'
             />
           </View>
         </View>
         <View style={{ marginTop: 30 }}>
           <View
             style={{
-              flexDirection: 'row',
-              alignItems: 'center',
+              flexDirection: "row",
+              alignItems: "center",
               gap: 5,
-              borderColor: '#D0D0D0',
+              borderColor: "#D0D0D0",
               borderWidth: 1,
               paddingVertical: 5,
               borderRadius: 5,
@@ -132,35 +161,35 @@ const LoginScreen = () => {
           >
             <AntDesign
               style={{ marginLeft: 8 }}
-              name="lock"
+              name='lock'
               size={24}
-              color="gray"
+              color='gray'
             />
             <TextInput
               secureTextEntry={true}
               value={password}
               onChangeText={(text) => setPassword(text)}
-              placeholderTextColor={'gray'}
+              placeholderTextColor={"gray"}
               style={{
-                color: 'gray',
+                color: "gray",
                 marginVertical: 10,
                 width: 300,
                 fontSize: password ? 16 : 16,
               }}
-              placeholder="Enter your password"
+              placeholder='Enter your password'
             />
           </View>
         </View>
         <View
           style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
             marginTop: 12,
           }}
         >
           <Text>Keep me logged in</Text>
-          <Text style={{ fontWeight: '500', color: '#007FFF' }}>
+          <Text style={{ fontWeight: "500", color: "#007FFF" }}>
             Forgot Password
           </Text>
         </View>
@@ -169,32 +198,32 @@ const LoginScreen = () => {
             onPress={handleLogin}
             style={{
               width: 200,
-              backgroundColor: 'black',
+              backgroundColor: "black",
               padding: 15,
               marginTop: 40,
-              marginLeft: 'auto',
-              marginRight: 'auto',
+              marginLeft: "auto",
+              marginRight: "auto",
               borderRadius: 6,
             }}
           >
             <Text
               style={{
-                textAlign: 'center',
-                fontWeight: 'bold',
+                textAlign: "center",
+                fontWeight: "bold",
                 fontSize: 16,
-                color: 'white',
+                color: "white",
               }}
             >
               Login
             </Text>
           </Pressable>
           <Pressable
-            onPress={() => navigation.navigate('Register')}
+            onPress={() => navigation.navigate("Register")}
             style={{ marginTop: 10 }}
           >
-            <Text style={{ textAlign: 'center', fontSize: 16 }}>
-              Don't have an account?{' '}
-              <Text style={{ color: '#007FFF', marginLeft: 10 }}>Sign up</Text>
+            <Text style={{ textAlign: "center", fontSize: 16 }}>
+              Don't have an account?{" "}
+              <Text style={{ color: "#007FFF", marginLeft: 10 }}>Sign up</Text>
             </Text>
           </Pressable>
         </View>

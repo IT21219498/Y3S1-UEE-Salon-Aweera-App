@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  SafeAreaView,
+} from "react-native";
 import React from "react";
 import AboutUsScreen from "../screens/AboutUsScreen";
 import ContactUsScreen from "../screens/ContactUsScreen";
@@ -13,13 +20,35 @@ import {
 } from "@react-navigation/drawer";
 import HomeScreen from "../screens/HomeScreen";
 import TabNavigator from "./TabNavigator";
-import { UserContext } from "../context/UserContext";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { UserContext, UserType } from "../context/UserContext";
+import { useContext } from "react";
+import { useEffect } from "react";
+import axios from "axios";
 
 const Drawer = createDrawerNavigator();
 
 const AppStack = () => {
   const navigation = useNavigation();
+
+  const { userId, setUserId } = useContext(UserType);
+  const { user, setUser } = useContext(UserType);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const res = await axios.get(
+          `http://192.168.1.6:5000/profile/${userId}`
+        );
+        const { user } = res.data;
+        console.log(user);
+        setUser(user);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchProfile();
+  }, [userId]);
+
   return (
     <Drawer.Navigator
       drawerContent={(props) => {
@@ -40,8 +69,16 @@ const AppStack = () => {
             >
               <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
                 <Image
-                  source={require("../assets/man.png")}
-                  style={{ height: 130, width: 130, borderRadius: 65 }}
+                  source={{
+                    uri: user?.profilePicture,
+                  }}
+                  style={{
+                    width: 100,
+                    height: 100,
+                    borderRadius: 50,
+                    marginTop: 20,
+                    alignSelf: "center",
+                  }}
                 />
                 <Text
                   style={{
@@ -50,7 +87,7 @@ const AppStack = () => {
                     fontWeight: "bold",
                   }}
                 >
-                  John Fernando
+                  {user?.name}
                 </Text>
               </TouchableOpacity>
             </View>

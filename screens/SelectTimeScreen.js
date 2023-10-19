@@ -1,11 +1,17 @@
-import { StyleSheet, Text, View, Button, Pressable } from 'react-native';
-import React, { useContext, useState } from 'react';
-import Header from '../components/Header';
-import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/core';
-import { Appointment } from '../context/AppointmentContext';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  Pressable,
+  SafeAreaView,
+} from "react-native";
+import React, { useContext, useState } from "react";
+import Header from "../components/Header";
+import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/core";
+import { Appointment } from "../context/AppointmentContext";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 const SelectTimeScreen = () => {
   const navigation = useNavigation();
@@ -35,12 +41,12 @@ const SelectTimeScreen = () => {
     let tempDate = new Date(date);
     let fDate =
       tempDate.getDate() +
-      '/' +
+      "/" +
       (tempDate.getMonth() + 1) +
-      '/' +
+      "/" +
       tempDate.getFullYear();
     setDate(fDate);
-    console.warn('A date has been picked: ', fDate);
+    console.warn("A date has been picked: ", fDate);
     hideDatePicker();
   };
 
@@ -48,25 +54,25 @@ const SelectTimeScreen = () => {
     let tempDate = new Date(date);
     let fTime =
       tempDate.getHours() +
-      ':' +
-      tempDate.getMinutes().toString().padStart(2, '0');
-    console.warn('A date has been picked: ', fTime);
+      ":" +
+      tempDate.getMinutes().toString().padStart(2, "0");
+    console.warn("A date has been picked: ", fTime);
     setTime(fTime);
     hideTimePicker();
   };
   const handleClickOnNext = () => {
-    navigation.navigate('Booking');
+    navigation.navigate("Booking");
     setAppointmentDetails([...appointmentDetails, { date: date, time: time }]);
   };
   return (
     <SafeAreaView>
-      <Header title={'Make an Appointment'} />
+      <Header title={"Make an Appointment"} />
       <View
         style={{
-          alignItems: 'left',
+          alignItems: "left",
           marginTop: 15,
           marginLeft: 5,
-          flexDirection: 'row',
+          flexDirection: "row",
         }}
       >
         <Ionicons
@@ -75,18 +81,18 @@ const SelectTimeScreen = () => {
             setAppointmentDetails((prevDetails) => prevDetails.slice(0, -1));
           }}
           style={{ marginRight: 5 }}
-          name="arrow-back-outline"
+          name='arrow-back-outline'
           size={34}
-          color="Black"
+          color='Black'
         />
-        <Text style={{ fontSize: 25, fontWeight: 'bold' }}>
+        <Text style={{ fontSize: 25, fontWeight: "bold" }}>
           Select a Date & Time
         </Text>
       </View>
       <View
         style={{
           borderWidth: 0.5,
-          borderColor: 'black',
+          borderColor: "black",
           marginTop: 15,
           marginBottom: 10,
         }}
@@ -95,51 +101,51 @@ const SelectTimeScreen = () => {
       <View
         style={{
           flex: 1,
-          alignItems: 'center',
+          alignItems: "center",
           marginTop: 120,
-          display: 'flex',
+          display: "flex",
         }}
       >
         <View
           style={{
-            backgroundColor: '#FFFFFF',
+            backgroundColor: "#FFFFFF",
             width: 200,
             height: 60,
             borderRadius: 10,
             borderWidth: 2,
-            borderColor: '#AB83A1',
-            justifyContent: 'center',
-            alignItems: 'center',
+            borderColor: "#AB83A1",
+            justifyContent: "center",
+            alignItems: "center",
             margin: 10,
           }}
         >
-          <Button title="Select Date" onPress={showDatePicker} color="black" />
+          <Button title='Select Date' onPress={showDatePicker} color='black' />
           <DateTimePickerModal
             isVisible={isDatePickerVisible}
-            mode="date"
+            mode='date'
             onConfirm={handleDateConfirm}
             onCancel={hideDatePicker}
             isDarkModeEnabled={true}
-            display="inline"
+            display='inline'
           />
         </View>
         <View
           style={{
-            backgroundColor: '#FFFFFF',
+            backgroundColor: "#FFFFFF",
             width: 200,
             height: 60,
             borderRadius: 10,
             borderWidth: 2,
-            borderColor: '#AB83A1',
-            justifyContent: 'center',
-            alignItems: 'center',
+            borderColor: "#AB83A1",
+            justifyContent: "center",
+            alignItems: "center",
             margin: 30,
           }}
         >
-          <Button title="Select Time" onPress={showTimePicker} color="black" />
+          <Button title='Select Time' onPress={showTimePicker} color='black' />
           <DateTimePickerModal
             isVisible={isTimePickerVisible}
-            mode="time"
+            mode='time'
             onConfirm={handleTimeConfirm}
             onCancel={hideTimePicker}
             isDarkModeEnabled={true}
@@ -149,7 +155,7 @@ const SelectTimeScreen = () => {
         <Pressable
           onPress={handleClickOnNext}
           style={{
-            backgroundColor: '#AB83A1',
+            backgroundColor: "#AB83A1",
             padding: 10,
             borderRadius: 10,
             height: 60,
@@ -159,10 +165,10 @@ const SelectTimeScreen = () => {
         >
           <Text
             style={{
-              color: 'black',
+              color: "black",
               fontSize: 28,
-              textAlign: 'center',
-              fontWeight: 'bold',
+              textAlign: "center",
+              fontWeight: "bold",
             }}
           >
             Next

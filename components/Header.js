@@ -16,41 +16,45 @@ const Header = ({ title }) => {
     <View
       style={{
         backgroundColor: "#735D7F",
-        flexDirection: "row",
-        alignItems: "center",
       }}
     >
-      <View style={{ marginLeft: 10 }}>
-        <TouchableOpacity onPress={() => navigation.openDrawer()}>
-          <FontAwesome name='user-circle' size={30} color='black' />
-        </TouchableOpacity>
-      </View>
       <View
-        style={{
-          flex: 1, // Take up available space
-          padding: 2,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
+        style={{ flexDirection: "row", alignItems: "center", marginTop: 22 }}
       >
-        <Image
-          source={require("../assets/aweera.png")}
-          style={styles.headerImage}
-        />
-        <Text
+        <View style={{ marginLeft: 10 }}>
+          <TouchableOpacity onPress={() => navigation.openDrawer()}>
+            <FontAwesome name='user-circle' size={30} color='black' />
+          </TouchableOpacity>
+        </View>
+        <View
           style={{
-            color: "black",
-            fontSize: 20,
-            fontFamily: "Poppins_700Bold",
+            flex: 1, // Take up available space
+            padding: 2,
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
-          {title}
-        </Text>
-      </View>
-      <View style={{ marginRight: 10 }}>
-        <TouchableOpacity onPress={() => navigation.navigate("MyAppointments")}>
-          <FontAwesome name='bell' size={30} color='black' marginRight='10' />
-        </TouchableOpacity>
+          <Image
+            source={require("../assets/aweera.png")}
+            style={styles.headerImage}
+          />
+          <Text
+            style={{
+              color: "black",
+              fontSize: 20,
+              fontFamily: "Poppins_700Bold",
+            }}
+          >
+            {title}
+          </Text>
+        </View>
+        <View style={{ marginRight: 10 }}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("MyAppointments")}
+          >
+            <FontAwesome name='bell' size={30} color='black' marginRight='10' />
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
