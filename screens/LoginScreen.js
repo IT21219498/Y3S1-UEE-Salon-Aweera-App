@@ -75,7 +75,7 @@ const LoginScreen = () => {
 
     axios({
       method: "post",
-      url: "http://192.168.1.25:5000/login",
+      url: "http://192.168.1.6:5000/login",
       data: user,
     })
       .then((res) => {

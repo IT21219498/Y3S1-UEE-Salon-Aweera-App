@@ -11,6 +11,7 @@ const userSchema = mongoose.Schema({
   profilePicture: { type: String },
   joinDate: { type: Date, default: Date.now },
   verified: { type: Boolean, default: false },
+  savedPosts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
   verificationToken: { type: String },
 });
 

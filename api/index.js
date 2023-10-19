@@ -150,13 +150,20 @@ app.post("/login", async (req, res) => {
 //endpoint to create a new post
 app.post("/create-post", async (req, res) => {
   try {
-    const { content, userId } = req.body;
+    const { content, PostImage, userId } = req.body;
+    console.log("content", content);
+    console.log("PostImage", PostImage);
 
     const newPostData = {
       user: userId,
     };
     if (content) {
       newPostData.content = content;
+    }
+
+    if (PostImage) {
+      // fixed variable name
+      newPostData.PostImage = PostImage;
     }
 
     const newPost = new Post(newPostData);
@@ -281,5 +288,35 @@ app.put("/update-user/:userId", async (req, res) => {
     return res.status(200).json({ message: "User updated successfully" });
   } catch (err) {
     res.status(500).json({ message: "Error while updating the profile data" });
+  }
+});
+
+// endpoint for saved a post (when user clicks the saved button of the post in the frontend that postId need to store in the User model savedPosts array)
+app.put("/save-post/:postId/:userId", async (req, res) => {
+  try {
+    const postId = req.params.postId;
+    const userId = req.params.userId;
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      {
+        $addToSet: { savedPosts: postId },
+      },
+      { new: true }
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    return res.status(200).json({ message: "Post saved successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Error while saving the post" });
   }
 });
