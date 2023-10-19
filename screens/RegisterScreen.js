@@ -28,7 +28,7 @@ const RegisterScreen = () => {
     };
 
     axios
-      .post("http://192.168.1.6:5000/register", user)
+      .post("http://192.168.1.25:5000/register", user)
       .then((res) => {
         console.log(res);
         Alert.alert("User Registered Successfully");
@@ -42,9 +42,7 @@ const RegisterScreen = () => {
       });
   };
   return (
-    <SafeAreaView
-      style={{ flex: 1, backgroundColor: "#F7F0FC", alignItems: "center" }}
-    >
+    <View style={{ flex: 1, backgroundColor: "#F7F0FC", alignItems: "center" }}>
       <View style={{ marginTop: 50, marginBottom: 100 }}>
         <Image
           style={{
@@ -199,7 +197,7 @@ const RegisterScreen = () => {
           </Pressable>
         </View>
       </KeyboardAvoidingView>
-    </SafeAreaView>
+    </View>
   );
 };
 
