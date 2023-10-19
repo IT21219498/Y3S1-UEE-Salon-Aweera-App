@@ -15,7 +15,6 @@ import {
 } from '@expo/vector-icons';
 import AppointmentScreen from './screens/AppointmentScreen';
 import ProfileScreen from './screens/ProfileScreen';
-import CreateScreen from './screens/CreateScreen';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import PackagesScreen from './screens/PackagesScreen';
 import MyAppointmentsScreen from './screens/MyAppointmentsScreen';

@@ -15,7 +15,9 @@ categoryRouter.post('/create', async (req, res) => {
   });
 
   const category = await newCategory.save();
-  res.status(201).send({ message: 'New Category Created', category });
+  const response = { message: 'New Category Created', data: category };
+
+  res.status(201).send(response);
 });
 
 categoryRouter.put('/add-package/:id', async (req, res) => {

@@ -45,7 +45,7 @@ const ExlorePackageScreen = () => {
     }
   };
   return (
-    <SafeAreaView>
+    <View>
       <Header title={'Explore Packages'} />
       <View
         style={{
@@ -235,7 +235,7 @@ const ExlorePackageScreen = () => {
         </View>
       </Modal>
       <PackageCards isAppointment={isAppointment} />
-    </SafeAreaView>
+    </View>
   );
 };
 

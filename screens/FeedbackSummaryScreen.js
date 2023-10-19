@@ -19,7 +19,7 @@ const FeedbackSummaryScreen = () => {
   const route = useRoute();
   const feedbackId = route.params.feedbackId;
   return (
-    <SafeAreaView style={{ backgroundColor: '#F7F0FC', height: 1000 }}>
+    <View style={{ backgroundColor: '#F7F0FC', height: 1000 }}>
       <Header title={'FeedBack'} />
       <View
         style={{
@@ -126,7 +126,7 @@ const FeedbackSummaryScreen = () => {
           Go To Home
         </Text>
       </Pressable>
-    </SafeAreaView>
+    </View>
   );
 };
 

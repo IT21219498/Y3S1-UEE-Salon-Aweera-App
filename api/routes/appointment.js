@@ -4,6 +4,7 @@ const appointmentRouter = express.Router();
 
 appointmentRouter.post('/create', async (req, res) => {
   const newAppointment = new Appointment({
+    user: req.body.userId,
     categoryName: req.body.category,
     packageName: req.body.package,
     stylistName: req.body.stylist,

@@ -1,31 +1,31 @@
-import { StyleSheet, Text, View, SafeAreaView } from "react-native";
-import React from "react";
-import Header from "../components/Header";
+import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import React from 'react';
+import Header from '../components/Header';
 
 const ContactUsScreen = () => {
   return (
-    <SafeAreaView style={{ backgroundColor: "#F7F0FC", height: 1000 }}>
+    <View style={{ backgroundColor: '#F7F0FC', height: 1000 }}>
       <View>
-        <Header title={"Contact Us"} />
+        <Header title={'Contact Us'} />
         <View
           style={{
-            alignItems: "center",
+            alignItems: 'center',
             margin: 10,
-            backgroundColor: "#FFFFFF",
+            backgroundColor: '#FFFFFF',
             height: 350,
             borderRadius: 10,
             borderWidth: 2,
-            borderColor: "#AB83A1",
+            borderColor: '#AB83A1',
             padding: 10,
           }}
         >
           <Text
             style={{
-              fontFamily: "Poppins_700Bold",
+              fontFamily: 'Poppins_700Bold',
               fontSize: 20,
               marginTop: 10,
               marginBottom: 10,
-              textAlign: "center",
+              textAlign: 'center',
             }}
           >
             AWEERA - Bridal, Hair & Beauty
@@ -33,62 +33,62 @@ const ContactUsScreen = () => {
 
           <Text
             style={{
-              fontFamily: "Poppins_700Bold",
+              fontFamily: 'Poppins_700Bold',
               fontSize: 16,
-              textAlign: "center",
+              textAlign: 'center',
             }}
           >
             Address
           </Text>
 
-          <Text style={{ fontFamily: "Poppins_300Light", textAlign: "left" }}>
+          <Text style={{ fontFamily: 'Poppins_300Light', textAlign: 'left' }}>
             Hair Care & Beauty Treatments & Dressing by AWEERA No. 220/1-1/1,
             Solomon Peiris Avenue, Mount Lavinia
           </Text>
 
           <Text
             style={{
-              fontFamily: "Poppins_700Bold",
+              fontFamily: 'Poppins_700Bold',
               fontSize: 16,
-              textAlign: "center",
+              textAlign: 'center',
             }}
           >
             Contact No:
           </Text>
 
-          <Text style={{ fontFamily: "Poppins_300Light", textAlign: "center" }}>
+          <Text style={{ fontFamily: 'Poppins_300Light', textAlign: 'center' }}>
             0112727285
           </Text>
 
           <Text
             style={{
-              fontFamily: "Poppins_700Bold",
+              fontFamily: 'Poppins_700Bold',
               fontSize: 16,
-              textAlign: "center",
+              textAlign: 'center',
             }}
           >
             Email:
           </Text>
 
-          <Text style={{ fontFamily: "Poppins_300Light", textAlign: "center" }}>
+          <Text style={{ fontFamily: 'Poppins_300Light', textAlign: 'center' }}>
             hairbyaweera@yahoo.com
           </Text>
           <Text
             style={{
-              fontFamily: "Poppins_700Bold",
+              fontFamily: 'Poppins_700Bold',
               fontSize: 16,
-              textAlign: "center",
+              textAlign: 'center',
             }}
           >
             Open Hours:
           </Text>
 
-          <Text style={{ fontFamily: "Poppins_300Light", textAlign: "center" }}>
+          <Text style={{ fontFamily: 'Poppins_300Light', textAlign: 'center' }}>
             Monday - Saturday: 9:00 AM to 7:00 PM
           </Text>
         </View>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 

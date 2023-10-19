@@ -150,20 +150,13 @@ app.post("/login", async (req, res) => {
 //endpoint to create a new post
 app.post("/create-post", async (req, res) => {
   try {
-    const { content, PostImage, userId } = req.body;
-    console.log("content", content);
-    console.log("PostImage", PostImage);
+    const { content, userId } = req.body;
 
     const newPostData = {
       user: userId,
     };
     if (content) {
       newPostData.content = content;
-    }
-
-    if (PostImage) {
-      // fixed variable name
-      newPostData.PostImage = PostImage;
     }
 
     const newPost = new Post(newPostData);

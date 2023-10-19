@@ -42,9 +42,7 @@ const RegisterScreen = () => {
       });
   };
   return (
-    <SafeAreaView
-      style={{ flex: 1, backgroundColor: '#F7F0FC', alignItems: 'center' }}
-    >
+    <View style={{ flex: 1, backgroundColor: '#F7F0FC', alignItems: 'center' }}>
       <View style={{ marginTop: 50, marginBottom: 100 }}>
         <Image
           style={{
@@ -199,7 +197,7 @@ const RegisterScreen = () => {
           </Pressable>
         </View>
       </KeyboardAvoidingView>
-    </SafeAreaView>
+    </View>
   );
 };
 

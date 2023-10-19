@@ -5,25 +5,25 @@ import {
   Image,
   TouchableOpacity,
   SafeAreaView,
-} from "react-native";
-import React from "react";
-import AboutUsScreen from "../screens/AboutUsScreen";
-import ContactUsScreen from "../screens/ContactUsScreen";
-import FeedbackScreen from "../screens/FeedbackScreen";
-import MyAppointmentsScreen from "../screens/MyAppointmentsScreen";
-import ProfileScreen from "../screens/ProfileScreen";
-import SavedPostsScreen from "../screens/SavedPostsScreen";
-import { NavigationContainer, useNavigation } from "@react-navigation/native";
+} from 'react-native';
+import React from 'react';
+import AboutUsScreen from '../screens/AboutUsScreen';
+import ContactUsScreen from '../screens/ContactUsScreen';
+import FeedbackScreen from '../screens/FeedbackScreen';
+import MyAppointmentsScreen from '../screens/MyAppointmentsScreen';
+import ProfileScreen from '../screens/ProfileScreen';
+import SavedPostsScreen from '../screens/SavedPostsScreen';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import {
   DrawerItemList,
   createDrawerNavigator,
-} from "@react-navigation/drawer";
-import HomeScreen from "../screens/HomeScreen";
-import TabNavigator from "./TabNavigator";
-import { UserContext, UserType } from "../context/UserContext";
-import { useContext } from "react";
-import { useEffect } from "react";
-import axios from "axios";
+} from '@react-navigation/drawer';
+import HomeScreen from '../screens/HomeScreen';
+import TabNavigator from './TabNavigator';
+import { UserContext, UserType } from '../context/UserContext';
+import { useContext } from 'react';
+import { useEffect } from 'react';
+import axios from 'axios';
 
 const Drawer = createDrawerNavigator();
 
@@ -37,7 +37,7 @@ const AppStack = () => {
     const fetchProfile = async () => {
       try {
         const res = await axios.get(
-          `http://192.168.1.6:5000/profile/${userId}`
+          `http://192.168.1.25:5000/profile/${userId}`
         );
         const { user } = res.data;
         console.log(user);
@@ -57,17 +57,17 @@ const AppStack = () => {
             <View
               style={{
                 height: 200,
-                width: "100%",
-                justifyContent: "center",
-                alignItems: "center",
-                borderBottomColor: "#735D7F",
+                width: '100%',
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderBottomColor: '#735D7F',
                 // borderTopColor: "#735D7F",
                 // borderTopWidth: 1,
                 borderBottomWidth: 1,
-                backgroundColor: "#F7F0FC",
+                backgroundColor: '#F7F0FC',
               }}
             >
-              <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
+              <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
                 <Image
                   source={{
                     uri: user?.profilePicture,
@@ -77,14 +77,14 @@ const AppStack = () => {
                     height: 100,
                     borderRadius: 50,
                     marginTop: 20,
-                    alignSelf: "center",
+                    alignSelf: 'center',
                   }}
                 />
                 <Text
                   style={{
                     fontSize: 22,
                     marginVertical: 6,
-                    fontWeight: "bold",
+                    fontWeight: 'bold',
                   }}
                 >
                   {user?.name}
@@ -96,67 +96,67 @@ const AppStack = () => {
         );
       }}
       screenOptions={{
-        drawerActiveTintColor: "black",
-        drawerActiveBackgroundColor: "#F7F0FC",
+        drawerActiveTintColor: 'black',
+        drawerActiveBackgroundColor: '#F7F0FC',
         drawerStyle: {
-          backgroundColor: "white",
+          backgroundColor: 'white',
           width: 250,
         },
       }}
     >
       <Drawer.Screen
-        name='HomeNav'
+        name="HomeNav"
         options={{
           headerShown: false,
-          drawerLabel: "Home",
+          drawerLabel: 'Home',
         }}
         component={TabNavigator}
       />
       <Drawer.Screen
-        name='My appointments'
+        name="My appointments"
         options={{
           headerShown: false,
-          drawerLabel: "My appointments",
+          drawerLabel: 'My appointments',
         }}
         component={MyAppointmentsScreen}
       />
       <Drawer.Screen
-        name='Feedbacks'
+        name="Feedbacks"
         options={{
           headerShown: false,
-          drawerLabel: "Feedbacks",
+          drawerLabel: 'Feedbacks',
         }}
         component={FeedbackScreen}
       />
       <Drawer.Screen
-        name='Saved Posts'
+        name="Saved Posts"
         options={{
           headerShown: false,
-          drawerLabel: "Saved Posts",
+          drawerLabel: 'Saved Posts',
         }}
         component={SavedPostsScreen}
       />
       <Drawer.Screen
-        name='About Us'
+        name="About Us"
         options={{
           headerShown: false,
-          drawerLabel: "About Us",
+          drawerLabel: 'About Us',
         }}
         component={AboutUsScreen}
       />
       <Drawer.Screen
-        name='Contact Us'
+        name="Contact Us"
         options={{
           headerShown: false,
-          drawerLabel: "Contact Us",
+          drawerLabel: 'Contact Us',
         }}
         component={ContactUsScreen}
       />
       <Drawer.Screen
-        name='Profile'
+        name="Profile"
         options={{
           headerShown: false,
-          drawerLabel: "Profile",
+          drawerLabel: 'Profile',
         }}
         component={ProfileScreen}
       />

@@ -1,39 +1,39 @@
-import { StyleSheet, Text, View, SafeAreaView } from "react-native";
-import React from "react";
+import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import React from 'react';
 
-import Header from "../components/Header";
+import Header from '../components/Header';
 
 const AboutUsScreen = () => {
   return (
-    <SafeAreaView style={{ backgroundColor: "#F7F0FC", height: 1000 }}>
+    <View style={{ backgroundColor: '#F7F0FC', height: 1000 }}>
       <View>
-        <Header title={"About Us"} />
+        <Header title={'About Us'} />
         <View
           style={{
-            justifyContent: "center",
-            alignItems: "center",
+            justifyContent: 'center',
+            alignItems: 'center',
             margin: 10,
-            backgroundColor: "#FFFFFF",
+            backgroundColor: '#FFFFFF',
             height: 700,
             borderRadius: 10,
             borderWidth: 2,
-            borderColor: "#AB83A1",
+            borderColor: '#AB83A1',
             padding: 10,
           }}
         >
           <Text
             style={{
-              fontFamily: "Poppins_700Bold",
+              fontFamily: 'Poppins_700Bold',
               fontSize: 20,
               marginTop: -20,
               marginBottom: 10,
-              textAlign: "center",
+              textAlign: 'center',
             }}
           >
             AWEERA - Bridal, Hair & Beauty
           </Text>
 
-          <Text style={{ fontFamily: "Poppins_300Light", textAlign: "center" }}>
+          <Text style={{ fontFamily: 'Poppins_300Light', textAlign: 'center' }}>
             Aweera Hair & Beauty is a renown name in the field of Hair & Beauty
             simply because of the exceptional service delivery. We, at Aweera
             strongly believe in working live with the clients. A pure mix of
@@ -59,7 +59,7 @@ const AboutUsScreen = () => {
           </Text>
         </View>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 

@@ -10,7 +10,7 @@ const SelectStylistScreen = () => {
   const navigation = useNavigation();
   const { appointmentDetails, setAppointmentDetails } = useContext(Appointment);
   return (
-    <SafeAreaView>
+    <View>
       <Header title={'Make an Appointment'} />
       <View
         style={{
@@ -43,7 +43,7 @@ const SelectStylistScreen = () => {
         }}
       />
       <StylistCard />
-    </SafeAreaView>
+    </View>
   );
 };
 

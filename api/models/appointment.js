@@ -4,7 +4,7 @@ const appointmentSchema = mongoose.Schema({
     type: String,
     unique: true,
   },
-  user: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   categoryName: {
     type: String,
     required: true,

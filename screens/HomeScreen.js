@@ -9,27 +9,27 @@ import {
   TouchableOpacity,
   ImageBackground,
   SafeAreaView,
-} from "react-native";
+} from 'react-native';
 import React, {
   useCallback,
   useContext,
   useEffect,
   useLayoutEffect,
   useState,
-} from "react";
-import { UserType } from "../context/UserContext";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import jwt_decode from "jwt-decode";
-import axios from "axios";
+} from 'react';
+import { UserType } from '../context/UserContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import jwt_decode from 'jwt-decode';
+import axios from 'axios';
 import {
   AntDesign,
   Ionicons,
   FontAwesome,
   MaterialIcons,
-} from "@expo/vector-icons";
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
-import Header from "../components/Header";
-import * as ImagePicker from "expo-image-picker";
+} from '@expo/vector-icons';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import Header from '../components/Header';
+import * as ImagePicker from 'expo-image-picker';
 
 const HomeScreen = () => {
   const { userId, setUserId } = useContext(UserType);
@@ -52,11 +52,11 @@ const HomeScreen = () => {
       setImage(result.assets[0].uri);
     }
   };
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState('');
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const token = await AsyncStorage.getItem("authToken");
+      const token = await AsyncStorage.getItem('authToken');
       const decodedToken = jwt_decode(token);
       const userId = decodedToken.userId;
       setUserId(userId);
@@ -75,7 +75,7 @@ const HomeScreen = () => {
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const token = await AsyncStorage.getItem("authToken");
+      const token = await AsyncStorage.getItem('authToken');
       const decodedToken = jwt_decode(token);
       const userId = decodedToken.userId;
       setUserId(userId);
@@ -94,24 +94,24 @@ const HomeScreen = () => {
     }
 
     axios
-      .post("http://192.168.1.6:5000/create-post", postData)
+      .post('http://192.168.1.25:5000/create-post', postData)
       .then((response) => {
-        setContent("");
+        setContent('');
         setImage(null);
       })
       .catch((err) => {
-        console.log("error creating post", err);
+        console.log('error creating post', err);
       });
   };
 
   const fetchPosts = async () => {
     try {
-      const res = await axios.get("http://192.168.1.6:5000/get-posts");
+      const res = await axios.get('http://192.168.1.25:5000/get-posts');
       // console.log("posts", res.data);
 
       setPosts(res.data);
     } catch (err) {
-      console.log("error fetching posts", err);
+      console.log('error fetching posts', err);
     }
   };
 
@@ -127,7 +127,7 @@ const HomeScreen = () => {
 
       setPosts(updatedPosts);
     } catch (err) {
-      console.log("error liking post", err);
+      console.log('error liking post', err);
     }
   };
 
@@ -143,16 +143,16 @@ const HomeScreen = () => {
 
       setPosts(updatedPosts);
     } catch (err) {
-      console.log("Error unliking post", err);
+      console.log('Error unliking post', err);
     }
   };
   return (
-    <SafeAreaView style={{ backgroundColor: "#F7F0FC", height: 1000 }}>
-      <Header title={"Explore Salon Feed"} />
-      <ScrollView style={{ flex: 1, backgroundColor: "#F7F0FC" }}>
+    <View style={{ backgroundColor: '#F7F0FC', height: 1000 }}>
+      <Header title={'Explore Salon Feed'} />
+      <ScrollView style={{ flex: 1, backgroundColor: '#F7F0FC' }}>
         <View
           style={{
-            flexDirection: "row",
+            flexDirection: 'row',
             marginLeft: 10,
             marginTop: 2,
           }}
@@ -161,40 +161,41 @@ const HomeScreen = () => {
             style={{
               flex: 1, // Take up available space
               marginRight: 10, // Add spacing between input and button
-              backgroundColor: "white", // Background color for input
+              backgroundColor: 'white', // Background color for input
               borderRadius: 10,
-              borderColor: "#AB83A1",
+              borderColor: '#AB83A1',
               borderWidth: 1,
-              flexDirection: "row", // Align items in one line
-              alignItems: "center", // Center items vertically
+              flexDirection: 'row', // Align items in one line
+              alignItems: 'center', // Center items vertically
+              marginTop: 15,
             }}
           >
             <TextInput
               style={{
-                color: "grey",
+                color: 'grey',
                 marginVertical: 10,
-                width: "70%", // Take up 70% of available width
+                width: '70%', // Take up 70% of available width
                 padding: 10, // Add padding inside input
               }}
               value={content}
               onChangeText={(text) => setContent(text)}
-              placeholderTextColor={"black"}
-              placeholder='Type your message...'
+              placeholderTextColor={'black'}
+              placeholder="Type your message..."
               multiline
             />
 
             <View
               style={{
                 flex: 1,
-                alignItems: "center",
-                justifyContent: "center",
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
             >
               <TouchableOpacity onPress={pickImage}>
                 <MaterialIcons
-                  name='add-photo-alternate'
+                  name="add-photo-alternate"
                   size={35}
-                  color='black'
+                  color="black"
                 />
               </TouchableOpacity>
               {image && (
@@ -212,18 +213,18 @@ const HomeScreen = () => {
 
                     <TouchableOpacity
                       style={{
-                        position: "absolute",
+                        position: 'absolute',
                         right: 0,
                         top: 0,
                         borderRadius: 50,
                         width: 30,
                         height: 30,
-                        alignItems: "center",
-                        justifyContent: "center",
+                        alignItems: 'center',
+                        justifyContent: 'center',
                       }}
                       onPress={() => setImage(null)}
                     >
-                      <MaterialIcons name='cancel' size={30} color='red' />
+                      <MaterialIcons name="cancel" size={30} color="red" />
                     </TouchableOpacity>
                   </View>
                 </>
@@ -235,7 +236,7 @@ const HomeScreen = () => {
         <TouchableOpacity
           style={styles.buttonContainer}
           onPress={handlePostSubmit}
-          title='Share'
+          title="Share"
         >
           <Text style={styles.buttonText}>Share Post</Text>
         </TouchableOpacity>
@@ -245,9 +246,9 @@ const HomeScreen = () => {
             <View
               style={{
                 padding: 15,
-                borderColor: "#D0D0D0",
+                borderColor: '#D0D0D0',
                 borderTopWidth: 1,
-                flexDirection: "row",
+                flexDirection: 'row',
                 gap: 10,
                 marginVertical: 10,
               }}
@@ -264,7 +265,7 @@ const HomeScreen = () => {
               </View>
               <View>
                 <Text
-                  style={{ fontSize: 15, fontWeight: "bold", marginBottom: 4 }}
+                  style={{ fontSize: 15, fontWeight: 'bold', marginBottom: 4 }}
                 >
                   {post?.user?.name}
                 </Text>
@@ -282,8 +283,8 @@ const HomeScreen = () => {
                 )}
                 <View
                   style={{
-                    flexDirection: "row",
-                    alignItems: "center",
+                    flexDirection: 'row',
+                    alignItems: 'center',
                     gap: 10,
                     marginTop: 15,
                   }}
@@ -291,27 +292,27 @@ const HomeScreen = () => {
                   {post?.likes?.includes(userId) ? (
                     <AntDesign
                       onPress={() => handleDisLike(post?._id)}
-                      name='heart'
+                      name="heart"
                       size={18}
-                      color='red'
+                      color="red"
                     />
                   ) : (
                     <AntDesign
                       onPress={() => handleLike(post?._id)}
-                      name='hearto'
+                      name="hearto"
                       size={18}
-                      color='black'
+                      color="black"
                     />
                   )}
 
-                  <FontAwesome name='comment-o' size={18} color='black' />
+                  <FontAwesome name="comment-o" size={18} color="black" />
                   <Ionicons
-                    name='share-social-outline'
+                    name="share-social-outline"
                     size={18}
-                    color='black'
+                    color="black"
                   />
                 </View>
-                <Text style={{ marginTop: 7, color: "gray" }}>
+                <Text style={{ marginTop: 7, color: 'gray' }}>
                   {post?.likes?.length} likes {post?.replies?.length} reply
                 </Text>
               </View>
@@ -319,7 +320,7 @@ const HomeScreen = () => {
           ))}
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -330,15 +331,15 @@ const styles = StyleSheet.create({
     width: 100,
     height: 30,
     marginLeft: 270,
-    backgroundColor: "#735D7F",
+    backgroundColor: '#735D7F',
     borderRadius: 10,
     marginTop: 10,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   buttonText: {
-    color: "white",
+    color: 'white',
     fontSize: 16,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
 });
