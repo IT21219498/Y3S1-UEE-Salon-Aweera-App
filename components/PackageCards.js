@@ -10,7 +10,7 @@ import React, { useContext } from 'react';
 import { useNavigation, useRoute } from '@react-navigation/core';
 import { Appointment } from '../context/AppointmentContext';
 
-const PackageCards = () => {
+const PackageCards = (props) => {
   const route = useRoute();
   const packages = route.params.packages;
   const navigation = useNavigation();

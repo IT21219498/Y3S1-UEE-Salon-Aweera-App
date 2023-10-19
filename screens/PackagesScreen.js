@@ -148,7 +148,7 @@ const PackagesScreen = () => {
                 fontWeight: '500',
               }}
             >
-              Image URL
+              Category Image URL
             </Text>
             <TextInput
               placeholder="Category URL"
@@ -209,7 +209,6 @@ const PackagesScreen = () => {
           </View>
         </View>
       </Modal>
-
       <CategoryCards isAppointment={isAppointment} />
     </SafeAreaView>
   );

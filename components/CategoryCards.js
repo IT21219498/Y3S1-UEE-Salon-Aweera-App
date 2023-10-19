@@ -43,7 +43,10 @@ const CategoryCards = (props) => {
       });
       setAppointmentDetails([...appointmentDetails, { category: item.name }]);
     } else {
-      navigation.navigate('ExplorePackages', { packages: item.packages });
+      navigation.navigate('ExplorePackages', {
+        packages: item.packages,
+        id: item._id,
+      });
     }
   };
 

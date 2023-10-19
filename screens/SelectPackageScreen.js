@@ -9,7 +9,7 @@ import { Appointment } from '../context/AppointmentContext';
 const SelectPackageScreen = () => {
   const navigation = useNavigation();
   const { appointmentDetails, setAppointmentDetails } = useContext(Appointment);
-  console.log(appointmentDetails);
+
   return (
     <SafeAreaView>
       <Header title={'Make an Appointment'} />
