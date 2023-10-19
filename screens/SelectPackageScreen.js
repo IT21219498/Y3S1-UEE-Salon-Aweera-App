@@ -11,7 +11,7 @@ const SelectPackageScreen = () => {
   const { appointmentDetails, setAppointmentDetails } = useContext(Appointment);
   const isAppointment = true;
   return (
-    <SafeAreaView>
+    <View>
       <Header title={'Make an Appointment'} />
       <View
         style={{
@@ -46,7 +46,7 @@ const SelectPackageScreen = () => {
         }}
       />
       <PackageCards isAppointment={isAppointment} />
-    </SafeAreaView>
+    </View>
   );
 };
 

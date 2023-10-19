@@ -7,7 +7,7 @@ const MyAppointmentsScreen = () => {
   const navigate = useNavigation();
 
   return (
-    <SafeAreaView style={{ backgroundColor: '#F7F0FC', height: 1000 }}>
+    <View style={{ backgroundColor: '#F7F0FC', height: 1000 }}>
       <View>
         <Header title={'My Appointments'} />
       </View>
@@ -222,7 +222,7 @@ const MyAppointmentsScreen = () => {
           </View>
         </View>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 

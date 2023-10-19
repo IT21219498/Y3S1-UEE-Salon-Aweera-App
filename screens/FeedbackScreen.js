@@ -7,22 +7,22 @@ import {
   Text,
   TextInput,
   View,
-} from "react-native";
-import React, { useState } from "react";
-import Header from "../components/Header";
-import { useNavigation } from "@react-navigation/native";
-import axios from "axios";
+} from 'react-native';
+import React, { useState } from 'react';
+import Header from '../components/Header';
+import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
 
 const FeedbackScreen = () => {
-  const [name, onChangeName] = useState("");
-  const [number, onChangeNumber] = useState("");
-  const [feedback, onChangefeedback] = useState("");
+  const [name, onChangeName] = useState('');
+  const [number, onChangeNumber] = useState('');
+  const [feedback, onChangefeedback] = useState('');
   const navigate = useNavigation();
 
   const handleSubmit = async () => {
     try {
       const { data } = await axios.post(
-        "http://192.168.1.25:5000/feedback/create",
+        'http://192.168.1.25:5000/feedback/create',
         {
           customerName: name,
           contactNo: number,
@@ -31,7 +31,7 @@ const FeedbackScreen = () => {
       );
       const fid = data.feedback.feedbackId;
       console.log(fid);
-      navigate.navigate("FeedbackSummary", {
+      navigate.navigate('FeedbackSummary', {
         feedbackId: fid,
       });
     } catch (error) {
@@ -39,27 +39,27 @@ const FeedbackScreen = () => {
     }
   };
   return (
-    <SafeAreaView>
-      <ScrollView style={{ backgroundColor: "#F7F0FC", height: 1000 }}>
+    <View>
+      <ScrollView style={{ backgroundColor: '#F7F0FC', height: 1000 }}>
         <View>
-          <Header title={"Feedback"} />
+          <Header title={'Feedback'} />
           <View
             style={{
               margin: 15,
               borderWidth: 3,
-              borderColor: "#735D7F",
-              width: "90%",
+              borderColor: '#735D7F',
+              width: '90%',
               height: 500,
-              alignSelf: "center",
+              alignSelf: 'center',
               marginTop: 25,
               borderRadius: 10,
-              backgroundColor: "white",
+              backgroundColor: 'white',
             }}
           >
             <Text
               style={{
                 fontSize: 24,
-                fontWeight: "bold",
+                fontWeight: 'bold',
                 marginTop: 20,
                 marginLeft: 15,
               }}
@@ -75,7 +75,7 @@ const FeedbackScreen = () => {
               <Text
                 style={{
                   fontSize: 18,
-                  fontWeight: "700",
+                  fontWeight: '700',
                 }}
               >
                 Customer Name :
@@ -89,13 +89,13 @@ const FeedbackScreen = () => {
                   borderWidth: 1,
                   marginTop: 10,
                   marginRight: 25,
-                  borderColor: "#AB83A1",
+                  borderColor: '#AB83A1',
                   borderRadius: 10,
                   height: 50,
                   fontSize: 18,
                 }}
-                placeholder='Input your name...'
-                placeholderTextColor='#999999'
+                placeholder="Input your name..."
+                placeholderTextColor="#999999"
               />
             </View>
             <View
@@ -107,7 +107,7 @@ const FeedbackScreen = () => {
               <Text
                 style={{
                   fontSize: 18,
-                  fontWeight: "700",
+                  fontWeight: '700',
                 }}
               >
                 Contact Number :
@@ -121,14 +121,14 @@ const FeedbackScreen = () => {
                   borderWidth: 1,
                   marginTop: 10,
                   marginRight: 25,
-                  borderColor: "#AB83A1",
+                  borderColor: '#AB83A1',
                   borderRadius: 10,
                   height: 50,
                   fontSize: 18,
                 }}
-                placeholder='Input contact number...'
-                placeholderTextColor='#999999'
-                keyboardType='number-pad'
+                placeholder="Input contact number..."
+                placeholderTextColor="#999999"
+                keyboardType="number-pad"
               />
             </View>
             <View
@@ -140,7 +140,7 @@ const FeedbackScreen = () => {
               <Text
                 style={{
                   fontSize: 18,
-                  fontWeight: "700",
+                  fontWeight: '700',
                 }}
               >
                 Feedback :
@@ -156,14 +156,14 @@ const FeedbackScreen = () => {
                   borderWidth: 1,
                   marginTop: 10,
                   marginRight: 25,
-                  borderColor: "#AB83A1",
+                  borderColor: '#AB83A1',
                   borderRadius: 10,
                   height: 50,
                   fontSize: 18,
                 }}
-                placeholder='Input your feedback...'
-                placeholderTextColor='#999999'
-                keyboardType='default'
+                placeholder="Input your feedback..."
+                placeholderTextColor="#999999"
+                keyboardType="default"
               />
             </View>
           </View>
@@ -171,25 +171,25 @@ const FeedbackScreen = () => {
             onPress={handleSubmit}
             style={{
               margin: 25,
-              backgroundColor: "#735D7F",
+              backgroundColor: '#735D7F',
               borderRadius: 10,
               padding: 6,
               width: 250,
-              alignSelf: "center",
+              alignSelf: 'center',
               marginTop: 50,
               borderWidth: 1,
-              borderColor: "#AB83A1",
+              borderColor: '#AB83A1',
             }}
           >
             <Text
-              style={{ fontSize: 25, textAlign: "center", fontWeight: "bold" }}
+              style={{ fontSize: 25, textAlign: 'center', fontWeight: 'bold' }}
             >
               Submit Feedback
             </Text>
           </Pressable>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 
