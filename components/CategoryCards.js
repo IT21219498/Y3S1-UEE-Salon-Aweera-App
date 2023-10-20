@@ -20,7 +20,7 @@ const CategoryCards = (props) => {
   const navigation = useNavigation();
   const { appointmentDetails, setAppointmentDetails } = useContext(Appointment);
   const [categories, setCategories] = useState([]);
-  console.log(isAppointment);
+  console.log(appointmentDetails);
   const fetchPackages = async () => {
     try {
       const response = await axios.get('http://192.168.1.25:5000/category');
@@ -50,7 +50,6 @@ const CategoryCards = (props) => {
     }
   };
 
-  console.log(categories);
   return (
     <SafeAreaView>
       {categories.map((item, key) => (

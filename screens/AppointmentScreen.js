@@ -15,11 +15,21 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const AppointmentScreen = () => {
   const isAppointment = true;
+  const isBackNavigation = false;
   return (
     <View style={{ backgroundColor: '#F7F0FC', height: 1000 }}>
-      <Header title={'Make an Appointment'} />
+      <Header
+        title={'Make an Appointment'}
+        isBackNavigation={isBackNavigation}
+      />
       <View style={{ alignItems: 'left', marginTop: 15, marginLeft: 15 }}>
-        <Text style={{ fontSize: 25, fontWeight: 'bold' }}>
+        <Text
+          style={{
+            fontSize: 25,
+            fontWeight: 'bold',
+            fontFamily: 'Poppins_600SemiBold',
+          }}
+        >
           Select a category
         </Text>
       </View>

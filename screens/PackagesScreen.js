@@ -21,6 +21,7 @@ const PackagesScreen = () => {
   const [categoryName, setCategoryName] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const isAppointment = false;
+  const isBackNavigation = false;
   const handleCreateCategory = () => {
     setOpenModal(true);
   };
@@ -40,7 +41,7 @@ const PackagesScreen = () => {
 
   return (
     <ScrollView style={{ backgroundColor: '#F7F0FC', height: 1000 }}>
-      <Header title={'Explore Packages'} />
+      <Header title={'Explore Packages'} isBackNavigation={isBackNavigation} />
       <View
         style={{
           alignItems: 'left',
@@ -50,7 +51,15 @@ const PackagesScreen = () => {
           justifyContent: 'space-between',
         }}
       >
-        <Text style={{ fontSize: 25, fontWeight: 'bold' }}>Categories</Text>
+        <Text
+          style={{
+            fontSize: 25,
+            fontWeight: 'bold',
+            fontFamily: 'Poppins_600SemiBold',
+          }}
+        >
+          Categories
+        </Text>
         <Pressable
           style={{
             marginRight: 15,

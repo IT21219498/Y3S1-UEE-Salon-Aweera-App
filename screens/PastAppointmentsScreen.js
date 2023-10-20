@@ -5,11 +5,11 @@ import { useNavigation } from '@react-navigation/native';
 
 const PastAppointmentsScreen = () => {
   const navigate = useNavigation();
-
+  const isBackNavigation = true;
   return (
     <View style={{ backgroundColor: '#F7F0FC', height: 1000 }}>
       <View>
-        <Header title={'My Appointments'} />
+        <Header title={'My Appointments'} isBackNavigation={isBackNavigation} />
       </View>
       <View
         style={{

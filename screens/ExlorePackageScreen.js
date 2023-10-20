@@ -23,6 +23,7 @@ const ExlorePackageScreen = () => {
   const route = useRoute();
   const id = route.params.id;
   const isAppointment = false;
+  const isBackNavigation = true;
   const handleCreatePackage = () => {
     setOpenModal(true);
   };
@@ -46,7 +47,7 @@ const ExlorePackageScreen = () => {
   };
   return (
     <View style={{ backgroundColor: '#F7F0FC' }}>
-      <Header title={'Explore Packages'} />
+      <Header title={'Explore Packages'} isBackNavigation={isBackNavigation} />
       <View
         style={{
           alignItems: 'left',
@@ -55,7 +56,7 @@ const ExlorePackageScreen = () => {
           flexDirection: 'row',
         }}
       >
-        <Ionicons
+        {/* <Ionicons
           onPress={() => {
             {
               navigation.goBack();
@@ -65,7 +66,7 @@ const ExlorePackageScreen = () => {
           name="arrow-back-outline"
           size={30}
           color="Black"
-        />
+        /> */}
         <View
           style={{
             flex: 1,
@@ -74,7 +75,15 @@ const ExlorePackageScreen = () => {
             justifyContent: 'space-between',
           }}
         >
-          <Text style={{ fontSize: 25, fontWeight: 'bold' }}>Packages</Text>
+          <Text
+            style={{
+              fontSize: 25,
+              fontWeight: 'bold',
+              fontFamily: 'Poppins_600SemiBold',
+            }}
+          >
+            Packages
+          </Text>
           <Pressable
             style={{
               marginRight: 15,

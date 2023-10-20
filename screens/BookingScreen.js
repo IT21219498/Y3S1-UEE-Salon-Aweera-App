@@ -17,6 +17,7 @@ const BookingScreen = () => {
   const date = appointmentDetails[3].date;
   const time = appointmentDetails[3].time;
   const { userId } = useContext(UserType);
+  const isBackNavigation = true;
   console.log(userId);
   const handleClickOnNext = async () => {
     try {
@@ -39,16 +40,19 @@ const BookingScreen = () => {
   };
   return (
     <View style={{ backgroundColor: '#F7F0FC' }}>
-      <Header title={'Make an Appointment'} />
+      <Header
+        title={'Make an Appointment'}
+        isBackNavigation={isBackNavigation}
+      />
       <View
         style={{
           alignItems: 'left',
           marginTop: 15,
-          marginLeft: 5,
+          marginLeft: 15,
           flexDirection: 'row',
         }}
       >
-        <Ionicons
+        {/* <Ionicons
           onPress={() => {
             navigation.goBack();
             setAppointmentDetails((prevDetails) => prevDetails.slice(0, -1));
@@ -57,8 +61,14 @@ const BookingScreen = () => {
           name="arrow-back-outline"
           size={34}
           color="Black"
-        />
-        <Text style={{ fontSize: 25, fontWeight: 'bold' }}>
+        /> */}
+        <Text
+          style={{
+            fontSize: 25,
+            fontWeight: 'bold',
+            fontFamily: 'Poppins_600SemiBold',
+          }}
+        >
           Appointment Summary
         </Text>
       </View>

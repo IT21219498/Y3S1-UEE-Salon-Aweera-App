@@ -9,18 +9,22 @@ import { Appointment } from '../context/AppointmentContext';
 const SelectStylistScreen = () => {
   const navigation = useNavigation();
   const { appointmentDetails, setAppointmentDetails } = useContext(Appointment);
+  const isBackNavigation = true;
   return (
     <View style={{ backgroundColor: '#F7F0FC' }}>
-      <Header title={'Make an Appointment'} />
+      <Header
+        title={'Make an Appointment'}
+        isBackNavigation={isBackNavigation}
+      />
       <View
         style={{
           alignItems: 'left',
           marginTop: 15,
-          marginLeft: 5,
+          marginLeft: 15,
           flexDirection: 'row',
         }}
       >
-        <Ionicons
+        {/* <Ionicons
           onPress={() => {
             navigation.goBack();
             setAppointmentDetails((prevDetails) => prevDetails.slice(0, -1));
@@ -29,8 +33,14 @@ const SelectStylistScreen = () => {
           name="arrow-back-outline"
           size={34}
           color="Black"
-        />
-        <Text style={{ fontSize: 25, fontWeight: 'bold' }}>
+        /> */}
+        <Text
+          style={{
+            fontSize: 25,
+            fontWeight: 'bold',
+            fontFamily: 'Poppins_600SemiBold',
+          }}
+        >
           Select a Stylist
         </Text>
       </View>

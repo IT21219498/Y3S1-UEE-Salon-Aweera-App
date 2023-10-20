@@ -9,9 +9,14 @@ import {
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { FontAwesome } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
+import { useContext } from 'react';
+import { Appointment } from '../context/AppointmentContext';
 
-const Header = ({ title }) => {
+const Header = ({ title, isBackNavigation }) => {
   const navigation = useNavigation();
+  console.log(isBackNavigation);
+  const { setAppointmentDetails } = useContext(Appointment);
   return (
     <View
       style={{
@@ -22,9 +27,26 @@ const Header = ({ title }) => {
         style={{ flexDirection: 'row', alignItems: 'center', marginTop: 45 }}
       >
         <View style={{ marginLeft: 10 }}>
-          <TouchableOpacity onPress={() => navigation.openDrawer()}>
-            <FontAwesome name="user-circle" size={30} color="black" />
-          </TouchableOpacity>
+          {isBackNavigation ? (
+            <Ionicons
+              onPress={() => {
+                navigation.goBack();
+                if (title === 'Make an Appointment') {
+                  setAppointmentDetails((prevDetails) =>
+                    prevDetails.slice(0, -1)
+                  );
+                }
+              }}
+              style={{ marginRight: 5 }}
+              name="arrow-back-outline"
+              size={34}
+              color="Black"
+            />
+          ) : (
+            <TouchableOpacity onPress={() => navigation.openDrawer()}>
+              <FontAwesome name="user-circle" size={30} color="black" />
+            </TouchableOpacity>
+          )}
         </View>
         <View
           style={{
@@ -41,7 +63,7 @@ const Header = ({ title }) => {
           <Text
             style={{
               color: 'black',
-              fontSize: 20,
+              fontSize: 22,
               fontFamily: 'Poppins_700Bold',
               marginBottom: 10,
             }}
