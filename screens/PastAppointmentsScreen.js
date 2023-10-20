@@ -22,7 +22,7 @@ const PastAppointmentsScreen = () => {
           }}
           style={{
             width: '50%',
-            backgroundColor: '#AB83A1',
+            backgroundColor: '#c9b4d9',
             height: 60,
             flex: 1,
             justifyContent: 'center',
@@ -44,7 +44,7 @@ const PastAppointmentsScreen = () => {
         <View
           style={{
             width: '50%',
-            backgroundColor: '#c9b4d9',
+            backgroundColor: '#AB83A1',
             height: 60,
             flex: 1,
             justifyContent: 'center',

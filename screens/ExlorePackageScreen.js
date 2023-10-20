@@ -45,7 +45,7 @@ const ExlorePackageScreen = () => {
     }
   };
   return (
-    <View>
+    <View style={{ backgroundColor: '#F7F0FC' }}>
       <Header title={'Explore Packages'} />
       <View
         style={{

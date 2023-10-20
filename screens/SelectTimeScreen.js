@@ -65,7 +65,7 @@ const SelectTimeScreen = () => {
     setAppointmentDetails([...appointmentDetails, { date: date, time: time }]);
   };
   return (
-    <View>
+    <View style={{ backgroundColor: '#F7F0FC' }}>
       <Header title={'Make an Appointment'} />
       <View
         style={{
