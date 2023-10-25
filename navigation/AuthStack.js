@@ -13,6 +13,7 @@ import BookingScreen from '../screens/BookingScreen';
 import FeedbackSummaryScreen from '../screens/FeedbackSummaryScreen';
 import PastAppointmentsScreen from '../screens/PastAppointmentsScreen';
 import ExlorePackageScreen from '../screens/ExlorePackageScreen';
+import AppointmentSuccessScreen from '../screens/AppointmentSuccessScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -58,6 +59,11 @@ const AuthStack = () => {
       <Stack.Screen
         name="FeedbackSummary"
         component={FeedbackSummaryScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="AppointmentSuccess"
+        component={AppointmentSuccessScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen

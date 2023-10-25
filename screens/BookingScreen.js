@@ -11,6 +11,7 @@ import { UserType } from '../context/UserContext';
 const BookingScreen = () => {
   const navigation = useNavigation();
   const { appointmentDetails, setAppointmentDetails } = useContext(Appointment);
+  const { setLoginUser, loginUser } = useContext(UserType);
   const category = appointmentDetails[0].category;
   const packageName = appointmentDetails[1].package;
   const stylist = appointmentDetails[2].stylist;
@@ -18,22 +19,25 @@ const BookingScreen = () => {
   const time = appointmentDetails[3].time;
   const { userId } = useContext(UserType);
   const isBackNavigation = true;
-  console.log(userId);
+
   const handleClickOnNext = async () => {
     try {
-      await axios
-        .post('http://192.168.1.25:5000/appointment/create', {
+      const { data } = await axios.post(
+        'http://192.168.1.25:5000/appointment/create',
+        {
           userId: userId,
           category: category,
           package: packageName,
           stylist: stylist,
           date: date,
           time: time,
-        })
-        .then((res) => {
-          navigation.navigate('Home');
-          setAppointmentDetails([]);
-        });
+        }
+      );
+      const appointmentId = data.appointment.AppointmentId;
+      navigation.navigate('Home', {
+        appointmentId: appointmentId,
+      });
+      setAppointmentDetails([]);
     } catch (error) {
       console.log(error);
     }

@@ -1,26 +1,20 @@
-import {
-  Image,
-  Pressable,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
+import { useNavigation, useRoute } from '@react-navigation/core';
 import Header from '../components/Header';
-import { Ionicons } from '@expo/vector-icons';
-import { useNavigation, useRoute } from '@react-navigation/native';
-const FeedbackSummaryScreen = () => {
+
+const AppointmentSuccessScreen = () => {
   const navigation = useNavigation();
+  const isNavigation = true;
+  const route = useRoute();
+  const appointmentId = route.params.aid;
   const date = new Date();
   const fDate =
     date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
   const fTime = date.getHours() + ':' + date.getMinutes();
-  const route = useRoute();
-  const feedbackId = route.params.feedbackId;
   return (
     <View style={{ backgroundColor: '#F7F0FC', height: 1000 }}>
-      <Header title={'FeedBack'} />
+      <Header title={'Make an Appointment'} isNavigation={isNavigation} />
       <View
         style={{
           alignItems: 'left',
@@ -29,17 +23,8 @@ const FeedbackSummaryScreen = () => {
           flexDirection: 'row',
         }}
       >
-        <Ionicons
-          onPress={() => {
-            navigation.goBack();
-          }}
-          style={{ marginRight: 5 }}
-          name="arrow-back-outline"
-          size={34}
-          color="Black"
-        />
         <Text style={{ fontSize: 25, fontWeight: 'bold' }}>
-          FeedBack Summary
+          Appointment Success
         </Text>
       </View>
       <View
@@ -76,15 +61,17 @@ const FeedbackSummaryScreen = () => {
             textAlign: 'center',
           }}
         >
-          FeedBack Submitted Successfully!
+          Appointment Placed Successfully!
         </Text>
         <View
           style={{ alignSelf: 'center', marginTop: 40, flexDirection: 'row' }}
         >
           <Text style={{ fontSize: 20, fontWeight: '400' }}>
-            FeedBack Id :{' '}
+            Appointment Id :{' '}
           </Text>
-          <Text style={{ fontSize: 20, fontWeight: '400' }}>{feedbackId}</Text>
+          <Text style={{ fontSize: 20, fontWeight: '400' }}>
+            {appointmentId}
+          </Text>
         </View>
         <View
           style={{ alignSelf: 'center', marginTop: 10, flexDirection: 'row' }}
@@ -130,6 +117,6 @@ const FeedbackSummaryScreen = () => {
   );
 };
 
-export default FeedbackSummaryScreen;
+export default AppointmentSuccessScreen;
 
 const styles = StyleSheet.create({});
