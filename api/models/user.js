@@ -12,6 +12,7 @@ const userSchema = mongoose.Schema({
   joinDate: { type: Date, default: Date.now },
   verified: { type: Boolean, default: false },
   verificationToken: { type: String },
+  SavedPosts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
 });
 
 const User = mongoose.model("User", userSchema);

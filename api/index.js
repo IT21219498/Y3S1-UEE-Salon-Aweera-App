@@ -286,3 +286,86 @@ app.put("/update-user/:userId", async (req, res) => {
     res.status(500).json({ message: "Error while updating the profile data" });
   }
 });
+
+//endpoint for save a particular post
+app.put("/save-post/:postId/:userId", async (req, res) => {
+  try {
+    const postId = req.params.postId;
+    const userId = req.params.userId;
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      {
+        $addToSet: { SavedPosts: postId },
+      },
+      { new: true }
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({ user: updatedUser });
+  } catch (error) {
+    res.status(500).json({ message: "Error while saving the post" });
+  }
+});
+
+//endpoint for unsave a particular post
+app.put("/unsave-post/:postId/:userId", async (req, res) => {
+  try {
+    const postId = req.params.postId;
+    const userId = req.params.userId;
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      {
+        $pull: { SavedPosts: postId },
+      },
+      { new: true }
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({ user: updatedUser });
+  } catch (error) {
+    res.status(500).json({ message: "Error while unsaving the post" });
+  }
+});
+
+//endpoint for get saved posts
+app.get("/get-saved-posts/:userId", async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    const user = await User.findById(userId).populate("SavedPosts");
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const posts = await Post.find({
+      _id: { $in: user.SavedPosts },
+    })
+      .populate("user", ["name", "profilePicture"])
+      .sort({ createdAt: -1 });
+
+    res.status(200).json({ posts });
+  } catch (error) {
+    res.status(500).json({ message: "Error while getting the saved posts" });
+  }
+});
