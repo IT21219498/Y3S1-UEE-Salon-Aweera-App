@@ -2,16 +2,22 @@ import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { useNavigation, useRoute } from '@react-navigation/core';
 import Header from '../components/Header';
+import { useContext } from 'react';
+import { UserType } from '../context/UserContext';
+import { Appointment } from '../context/AppointmentContext';
 
 const AppointmentSuccessScreen = () => {
   const navigation = useNavigation();
   const isNavigation = true;
   const route = useRoute();
-  const appointmentId = route.params.aid;
+  const appointmentId = route.params.appointmentId;
   const date = new Date();
   const fDate =
     date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
   const fTime = date.getHours() + ':' + date.getMinutes();
+  const { setLoginUser } = useContext(UserType);
+  const { appointmentDetails, setAppointmentDetails } = useContext(Appointment);
+  setLoginUser(null);
   return (
     <View style={{ backgroundColor: '#F7F0FC', height: 1000 }}>
       <Header title={'Make an Appointment'} isNavigation={isNavigation} />

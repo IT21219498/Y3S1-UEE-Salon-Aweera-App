@@ -33,11 +33,11 @@ const BookingScreen = () => {
           time: time,
         }
       );
+      setLoginUser(null);
       const appointmentId = data.appointment.AppointmentId;
-      navigation.navigate('Home', {
+      navigation.navigate('AppointmentSuccess', {
         appointmentId: appointmentId,
       });
-      setAppointmentDetails([]);
     } catch (error) {
       console.log(error);
     }
