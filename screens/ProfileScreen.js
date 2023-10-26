@@ -25,6 +25,21 @@ const ProfileScreen = () => {
   const [image, setImage] = useState(null);
   const [name, setName] = useState("");
 
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const res = await axios.get(
+          `http://192.168.1.6:5000/profile/${userId}`
+        );
+        const { user } = res.data;
+        setUser(user);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchProfile();
+  }, []);
+
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
