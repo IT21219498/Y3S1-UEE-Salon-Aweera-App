@@ -26,19 +26,18 @@ const ProfileScreen = () => {
   const [name, setName] = useState("");
 
   useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const res = await axios.get(
-          `http://192.168.1.6:5000/profile/${userId}`
-        );
-        const { user } = res.data;
-        setUser(user);
-      } catch (err) {
-        console.log(err);
-      }
-    };
     fetchProfile();
   }, []);
+
+  const fetchProfile = async () => {
+    try {
+      const res = await axios.get(`http://192.168.1.6:5000/profile/${userId}`);
+      const { user } = res.data;
+      setUser(user);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -63,9 +62,10 @@ const ProfileScreen = () => {
       ProfilePicture: image,
     };
     axios
-      .put(`http://192.168.1.25:5000/update-user/${userId}`, user)
+      .put(`http://192.168.1.6:5000/update-user/${userId}`, user)
       .then((res) => {
         Alert.alert("User Updated Successfully");
+        fetchProfile();
         setName("");
         setImage("");
       })
@@ -82,7 +82,7 @@ const ProfileScreen = () => {
   const clearAuthToken = async () => {
     await AsyncStorage.removeItem("authToken");
 
-    setLoginUser(null);
+    setLoginUser(false);
 
     console.log("token removed");
 
@@ -91,29 +91,31 @@ const ProfileScreen = () => {
   return (
     <View style={{ backgroundColor: "#F7F0FC", height: 1000 }}>
       <Header title='Profile' />
-      <View style={{ marginTop: 10, padding: 15, backgroundColor: "white" }}>
+      <View
+        style={{
+          marginTop: 10,
+          padding: 15,
+          margin: 20,
+          borderRadius: 10,
+          borderWidth: 2,
+          borderColor: "#735D7F",
+          backgroundColor: "white",
+          width: "90%",
+          alignSelf: "center",
+          height: 400,
+        }}
+      >
         <View>
           <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
-            <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+            <Text style={{ fontSize: 20, fontFamily: "Poppins_700Bold" }}>
               {user?.name}
             </Text>
-            <View
-              style={{
-                paddingHorizontal: 7,
-                paddingVertical: 5,
-                borderRadius: 8,
-                backgroundColor: "#D0D0D0",
-              }}
-            >
-              <Text>Aweera Salon</Text>
-            </View>
           </View>
           <View
             style={{
-              flexDirection: "row",
-              marginTop: 15,
+              marginTop: 5,
               alignItems: "center",
-              gap: 20,
+              gap: 10,
             }}
           >
             <View
@@ -123,13 +125,6 @@ const ProfileScreen = () => {
                 justifyContent: "center",
               }}
             >
-              <TouchableOpacity onPress={pickImage}>
-                <MaterialIcons
-                  name='add-photo-alternate'
-                  size={35}
-                  color='black'
-                />
-              </TouchableOpacity>
               {image && (
                 <>
                   <View style={{ marginRight: 20 }}>
@@ -162,28 +157,51 @@ const ProfileScreen = () => {
                 </>
               )}
             </View>
-            <View>
-              <Image
+            {!image && (
+              <View>
+                <Pressable onPress={pickImage}>
+                  <Image
+                    source={{
+                      uri: user?.profilePicture,
+                    }}
+                    style={{
+                      width: 100,
+                      height: 100,
+                      borderRadius: 50,
+                      marginTop: 10,
+                      alignSelf: "center",
+                    }}
+                  />
+                </Pressable>
+              </View>
+            )}
+            <View style={{ marginLeft: -5 }}>
+              <Text
                 style={{
-                  width: 40,
-                  height: 40,
-                  // borderradius: 20,
-                  resizeMode: "contain",
+                  fontSize: 15,
+                  fontWeight: "400",
+                  fontFamily: "Poppins_300Light",
                 }}
-                source={{
-                  uri: "https://cdn-icons-png.flaticon.com/128/149/149071.png",
-                }}
-              />
-            </View>
-            <View>
-              <Text style={{ fontSize: 15, fontWeight: "400" }}>
+              >
                 Diploma in Hairdressing & Beauty Culture
               </Text>
-              <Text style={{ fontSize: 15, fontWeight: "400" }}>
+              <Text
+                style={{
+                  fontSize: 15,
+                  fontWeight: "400",
+                  fontFamily: "Poppins_300Light",
+                }}
+              >
                 Full time stylist
               </Text>
 
-              <Text style={{ fontSize: 15, fontWeight: "400" }}>
+              <Text
+                style={{
+                  fontSize: 15,
+                  fontWeight: "400",
+                  fontFamily: "Poppins_300Light",
+                }}
+              >
                 Experience : 2 years
               </Text>
             </View>
@@ -191,39 +209,44 @@ const ProfileScreen = () => {
         </View>
         <View
           style={{
-            flexDirection: "raw",
-            alignItems: "center",
-            gap: 10,
-            marginTop: 20,
+            flexDirection: "row",
+            justifyContent: "space-between",
+            marginTop: 40,
           }}
         >
           <Pressable
             style={{
-              // flex: 10,
               justifyContent: "center",
               alignItems: "center",
               padding: 10,
               borderColor: "#D0D0D0",
+              backgroundColor: "#735D7F",
               borderWidth: 1,
               borderRadius: 5,
+              width: "48%",
             }}
             onPress={editProfile}
           >
-            <Text>Edit Profile</Text>
+            <Text style={{ fontFamily: "Poppins_700Bold", fontSize: 16 }}>
+              Edit Profile
+            </Text>
           </Pressable>
           <Pressable
             onPress={logout}
             style={{
-              // flex: 10,
               justifyContent: "center",
               alignItems: "center",
               padding: 10,
               borderColor: "#D0D0D0",
+              backgroundColor: "#735D7F",
               borderWidth: 1,
               borderRadius: 5,
+              width: "48%",
             }}
           >
-            <Text>Logout</Text>
+            <Text style={{ fontFamily: "Poppins_700Bold", fontSize: 16 }}>
+              Logout
+            </Text>
           </Pressable>
         </View>
       </View>

@@ -106,7 +106,7 @@ const SavedPostsScreen = () => {
 
   return (
     <View style={{ backgroundColor: "#F7F0FC", height: 1000 }}>
-      <Header title={"Explore Salon Feed"} />
+      <Header title={"Saved Posts"} />
       <ScrollView
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />

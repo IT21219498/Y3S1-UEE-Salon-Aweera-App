@@ -1,11 +1,11 @@
-import { createContext, useState } from 'react';
+import { createContext, useState } from "react";
 
 const UserType = createContext();
 
 const UserContext = ({ children }) => {
-  const [userId, setUserId] = useState('');
-  const [loginUser, setLoginUser] = useState(null);
-  const [user, setUser] = useState('');
+  const [userId, setUserId] = useState("");
+  const [loginUser, setLoginUser] = useState(false);
+  const [user, setUser] = useState("");
 
   return (
     <UserType.Provider

@@ -10,6 +10,8 @@ import {
   ImageBackground,
   SafeAreaView,
   RefreshControl,
+  Modal,
+  Alert,
 } from "react-native";
 import React, {
   useCallback,
@@ -34,12 +36,25 @@ import Header from "../components/Header";
 import * as ImagePicker from "expo-image-picker";
 
 const HomeScreen = () => {
-  const { userId, setUserId, user, setUser } = useContext(UserType);
+  const { userId, setUserId, user, setUser, loginUser, setLoginUser } =
+    useContext(UserType);
   const [posts, setPosts] = useState([]);
   const navigation = useNavigation();
   const [image, setImage] = useState(null);
+  const [openModal, setOpenModal] = useState(false);
+  const [mpostId, setmPostId] = useState(null);
+  const [content, setContent] = useState("");
 
   const [refreshing, setRefreshing] = React.useState(false);
+
+  useEffect(() => {
+    const updateLoginUser = async () => {
+      if (loginUser) {
+        setLoginUser(false);
+      }
+    };
+    updateLoginUser();
+  }, []);
 
   const onRefresh = React.useCallback(() => {
     fetchPosts();
@@ -59,13 +74,20 @@ const HomeScreen = () => {
       quality: 1,
     });
 
-    console.log(result);
-
     if (!result.canceled) {
       setImage(result.assets[0].uri);
     }
   };
-  const [content, setContent] = useState("");
+
+  const handleDeleteUpdate = (postId) => {
+    console.log(
+      "🚀 ~ file: HomeScreen.js:72 ~ handleDeleteUpdate ~ postId:",
+      postId
+    );
+
+    setmPostId(postId);
+    setOpenModal(true);
+  };
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -79,6 +101,7 @@ const HomeScreen = () => {
 
   useEffect(() => {
     fetchPosts();
+    fetchProfile();
   }, []);
   useFocusEffect(
     useCallback(() => {
@@ -103,6 +126,7 @@ const HomeScreen = () => {
     if (content) {
       postData.content = content;
     }
+
     if (image) {
       postData.PostImage = image;
     }
@@ -193,6 +217,30 @@ const HomeScreen = () => {
       console.log("Error saving post", err);
     }
   };
+
+  const handlePostDelete = async (postId) => {
+    try {
+      const res = await axios.delete(
+        `http://192.168.1.6:5000/delete-post/${postId}`
+      );
+      onRefresh();
+      Alert.alert("Post Deleted Successfully");
+    } catch (err) {
+      console.log("Error deleting post", err);
+      Alert.alert("Post Deletion failed", "Something went wrong");
+    }
+  };
+
+  const getOnePost = async (postId) => {
+    try {
+      const res = await axios.get(`http://192.168.1.6:5000/get-post/${postId}`);
+      const { post } = res.data;
+      setPosts(post);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <View style={{ backgroundColor: "#F7F0FC", height: 1000 }}>
       <Header title={"Explore Salon Feed"} />
@@ -295,110 +343,195 @@ const HomeScreen = () => {
 
         <View style={{ marTop: 20 }}>
           {posts?.map((post) => (
-            <View
-              style={{
-                padding: 15,
-                borderColor: "#D0D0D0",
-                borderTopWidth: 1,
-                flexDirection: "row",
-                gap: 10,
-                marginVertical: 10,
-              }}
-            >
-              <View>
-                <Image
-                  source={{ uri: post?.user?.profilePicture }}
-                  style={{
-                    width: 40,
-                    height: 40,
-                    borderRadius: 25,
+            <>
+              <>
+                <Modal
+                  animationType='slide'
+                  transparent={true}
+                  visible={openModal}
+                  onRequestClose={() => {
+                    setOpenModal(!openModal);
                   }}
-                />
-              </View>
-              <View>
-                <View style={{ flexDirection: "row" }}>
-                  <Text
+                >
+                  <TouchableOpacity
                     style={{
-                      fontSize: 15,
-                      fontWeight: "bold",
-                      marginBottom: 4,
+                      flex: 1,
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "rgba(0, 0, 0, 0.5)",
+                    }}
+                    onPress={() => setOpenModal(false)}
+                  >
+                    <View
+                      style={{
+                        backgroundColor: "white",
+                        borderWidth: 2,
+                        borderColor: "#AB83A1",
+                        borderRadius: 10,
+                        width: "80%",
+                        height: "auto",
+                      }}
+                    >
+                      <TouchableOpacity
+                        style={{
+                          backgroundColor: "white",
+                          alignItems: "center",
+                          alignSelf: "center",
+                          width: 180,
+                        }}
+                        // onPress={handleSaveCategory}
+                      >
+                        <Text
+                          style={{
+                            color: "black",
+                            fontSize: 18,
+                            margin: 15,
+                            fontFamily: "Poppins_900Black",
+                          }}
+                        >
+                          Edit Post
+                        </Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        style={{
+                          alignItems: "center",
+                          alignSelf: "center",
+                          width: "100%",
+                          borderColor: "#AB83A1",
+                          borderWidth: 1,
+                        }}
+                        onPress={() => handlePostDelete(mpostId)}
+                      >
+                        <Text
+                          style={{
+                            color: "black",
+                            fontSize: 18,
+                            margin: 15,
+                            fontFamily: "Poppins_900Black",
+                          }}
+                        >
+                          Delete
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
+                  </TouchableOpacity>
+                </Modal>
+              </>
+              <View
+                style={{
+                  padding: 15,
+                  borderColor: "#D0D0D0",
+                  borderTopWidth: 1,
+                  flexDirection: "row",
+                  gap: 10,
+                  marginVertical: 10,
+                }}
+              >
+                <View>
+                  <Image
+                    source={{ uri: post?.user?.profilePicture }}
+                    style={{
+                      width: 40,
+                      height: 40,
+                      borderRadius: 25,
+                    }}
+                  />
+                </View>
+                <View>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{
+                        fontSize: 15,
+                        marginBottom: 4,
+                        fontFamily: "Poppins_700Bold",
+                      }}
+                    >
+                      {post?.user?.name}
+                    </Text>
+
+                    <View
+                      style={{ marginLeft: 60, flexDirection: "row", gap: 10 }}
+                    >
+                      {user.SavedPosts?.includes(post?._id) ? (
+                        <FontAwesome
+                          name='bookmark'
+                          size={28}
+                          color='black'
+                          onPress={() => handleUnSavePost(post?._id)}
+                        />
+                      ) : (
+                        <FontAwesome
+                          name='bookmark-o'
+                          size={28}
+                          color='black'
+                          onPress={() => handleSavePost(post?._id)}
+                        />
+                      )}
+
+                      <Entypo
+                        marginTop={-7}
+                        name='dots-three-horizontal'
+                        size={25}
+                        color='black'
+                        onPress={() => handleDeleteUpdate(post?._id)}
+                      />
+                    </View>
+                  </View>
+                  <Text style={{ fontFamily: "Poppins_300Light" }}>
+                    {post?.content}
+                  </Text>
+                  {post?.PostImage && (
+                    <Image
+                      source={{ uri: post?.PostImage }}
+                      style={{
+                        width: 300,
+                        height: 200,
+                        borderRadius: 10,
+                        marginVertical: 10,
+                      }}
+                    />
+                  )}
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      gap: 10,
+                      marginTop: 10,
                     }}
                   >
-                    {post?.user?.name}
-                  </Text>
-
-                  <View
-                    style={{ marginLeft: 100, flexDirection: "row", gap: 10 }}
-                  >
-                    {user.SavedPosts?.includes(post?._id) ? (
-                      <FontAwesome
-                        name='bookmark'
+                    {post?.likes?.includes(userId) ? (
+                      <AntDesign
+                        onPress={() => handleDisLike(post?._id)}
+                        name='heart'
                         size={28}
-                        color='black'
-                        onPress={() => handleUnSavePost(post?._id)}
+                        color='red'
                       />
                     ) : (
-                      <FontAwesome
-                        name='bookmark-o'
+                      <AntDesign
+                        onPress={() => handleLike(post?._id)}
+                        name='hearto'
                         size={28}
                         color='black'
-                        onPress={() => handleSavePost(post?._id)}
                       />
                     )}
-
-                    <Entypo
-                      name='dots-three-vertical'
+                    <Ionicons
+                      name='share-social-outline'
                       size={28}
                       color='black'
                     />
                   </View>
-                </View>
-                <Text>{post?.content}</Text>
-                {post?.PostImage && (
-                  <Image
-                    source={{ uri: post?.PostImage }}
+                  <Text
                     style={{
-                      width: 300,
-                      height: 200,
-                      borderRadius: 10,
-                      marginVertical: 10,
+                      marginTop: 7,
+                      color: "gray",
+                      fontFamily: "Poppins_300Light",
                     }}
-                  />
-                )}
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    gap: 10,
-                    marginTop: 10,
-                  }}
-                >
-                  {post?.likes?.includes(userId) ? (
-                    <AntDesign
-                      onPress={() => handleDisLike(post?._id)}
-                      name='heart'
-                      size={28}
-                      color='red'
-                    />
-                  ) : (
-                    <AntDesign
-                      onPress={() => handleLike(post?._id)}
-                      name='hearto'
-                      size={28}
-                      color='black'
-                    />
-                  )}
-                  <Ionicons
-                    name='share-social-outline'
-                    size={28}
-                    color='black'
-                  />
+                  >
+                    {post?.likes?.length} likes
+                  </Text>
                 </View>
-                <Text style={{ marginTop: 7, color: "gray" }}>
-                  {post?.likes?.length} likes {post?.replies?.length} reply
-                </Text>
               </View>
-            </View>
+            </>
           ))}
         </View>
       </ScrollView>
@@ -420,8 +553,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   buttonText: {
+    fontFamily: "Poppins_700Bold",
     color: "white",
     fontSize: 16,
-    fontWeight: "bold",
   },
 });

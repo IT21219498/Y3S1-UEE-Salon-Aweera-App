@@ -75,13 +75,13 @@ const LoginScreen = () => {
 
     axios({
       method: "post",
-      url: "http://192.168.1.25:5000/login",
+      url: "http://192.168.1.6:5000/login",
       data: user,
     })
       .then((res) => {
         console.log(res);
         const token = res.data.token;
-        setLoginUser(token);
+        setLoginUser(true);
         // console.log(res);
 
         AsyncStorage.setItem("authToken", token);
@@ -97,7 +97,17 @@ const LoginScreen = () => {
     <SafeAreaView
       style={{ flex: 1, backgroundColor: "#F7F0FC", alignItems: "center" }}
     >
-      <View style={{ marginTop: 50, marginBottom: 100 }}>
+      {/* Add the two circles at the top */}
+      <View style={styles.circleContainer}>
+        <View style={styles.circleContainer2}>
+          <View style={styles.circle2} />
+        </View>
+        <View style={styles.circleContainer1}>
+          <View style={styles.circle1} />
+        </View>
+      </View>
+
+      <View style={{ marginTop: 90, marginBottom: 100 }}>
         <Image
           style={{
             width: 200,
@@ -111,7 +121,13 @@ const LoginScreen = () => {
 
       <KeyboardAvoidingView>
         <View style={{ alignItems: "center", justifyContent: "center" }}>
-          <Text style={{ fontSize: 17, fontWeight: "bold", marginTop: 20 }}>
+          <Text
+            style={{
+              fontSize: 17,
+              marginTop: 20,
+              fontFamily: "Poppins_700Bold",
+            }}
+          >
             Login to Your Account
           </Text>
         </View>
@@ -125,18 +141,20 @@ const LoginScreen = () => {
               borderWidth: 1,
               paddingVertical: 5,
               borderRadius: 5,
+              backgroundColor: "white",
             }}
           >
             <MaterialIcons
               style={{ marginLeft: 8 }}
               name='email'
               size={24}
-              color='gray'
+              color='black'
             />
             <TextInput
               value={email}
               onChangeText={(text) => setEmail(text)}
               placeholderTextColor={"gray"}
+              // placeholderFontFamily={"Poppins_400Regular"}
               style={{
                 color: "gray",
                 marginVertical: 10,
@@ -157,13 +175,14 @@ const LoginScreen = () => {
               borderWidth: 1,
               paddingVertical: 5,
               borderRadius: 5,
+              backgroundColor: "white",
             }}
           >
             <AntDesign
               style={{ marginLeft: 8 }}
               name='lock'
               size={24}
-              color='gray'
+              color='black'
             />
             <TextInput
               secureTextEntry={true}
@@ -188,9 +207,15 @@ const LoginScreen = () => {
             marginTop: 12,
           }}
         >
-          <Text>Keep me logged in</Text>
-          <Text style={{ fontWeight: "500", color: "#007FFF" }}>
-            Forgot Password
+          <Text
+            style={{
+              fontWeight: "500",
+              color: "#007FFF",
+              fontFamily: "Poppins_300Light",
+              marginLeft: 220,
+            }}
+          >
+            Forgot Password?
           </Text>
         </View>
         <View style={{ marginTop: 45 }}>
@@ -209,9 +234,9 @@ const LoginScreen = () => {
             <Text
               style={{
                 textAlign: "center",
-                fontWeight: "bold",
                 fontSize: 16,
                 color: "white",
+                fontFamily: "Poppins_700Bold",
               }}
             >
               Login
@@ -221,7 +246,13 @@ const LoginScreen = () => {
             onPress={() => navigation.navigate("Register")}
             style={{ marginTop: 10 }}
           >
-            <Text style={{ textAlign: "center", fontSize: 16 }}>
+            <Text
+              style={{
+                textAlign: "center",
+                fontSize: 16,
+                fontFamily: "Poppins_300Light",
+              }}
+            >
               Don't have an account?{" "}
               <Text style={{ color: "#007FFF", marginLeft: 10 }}>Sign up</Text>
             </Text>
@@ -234,4 +265,35 @@ const LoginScreen = () => {
 
 export default LoginScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  circleContainer1: {
+    position: "absolute",
+    flexDirection: "row",
+  },
+  circleContainer1: {
+    position: "absolute",
+    top: -70,
+    left: -140,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  circleContainer2: {
+    position: "absolute",
+    top: -12,
+    left: -250,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  circle1: {
+    width: 175,
+    height: 175,
+    borderRadius: 100,
+    backgroundColor: "#735D7F", // You can change the color
+  },
+  circle2: {
+    width: 175,
+    height: 175,
+    borderRadius: 100,
+    backgroundColor: "#AB83A1", // You can change the color
+  },
+});

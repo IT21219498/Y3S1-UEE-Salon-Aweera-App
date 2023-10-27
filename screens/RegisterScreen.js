@@ -8,6 +8,7 @@ import {
   TextInput,
   KeyboardAvoidingView,
   Alert,
+  ScrollView,
 } from "react-native";
 import React, { useState } from "react";
 import { MaterialIcons, AntDesign, Ionicons } from "@expo/vector-icons";
@@ -43,7 +44,16 @@ const RegisterScreen = () => {
   };
   return (
     <View style={{ flex: 1, backgroundColor: "#F7F0FC", alignItems: "center" }}>
-      <View style={{ marginTop: 50, marginBottom: 100 }}>
+      {/* Add the two circles at the top */}
+      <View style={styles.circleContainer}>
+        <View style={styles.circleContainer2}>
+          <View style={styles.circle2} />
+        </View>
+        <View style={styles.circleContainer1}>
+          <View style={styles.circle1} />
+        </View>
+      </View>
+      <View style={{ marginTop: 90, marginBottom: 70 }}>
         <Image
           style={{
             width: 200,
@@ -52,18 +62,22 @@ const RegisterScreen = () => {
             tintColor: "black",
           }}
           source={require("../assets/aweera.png")}
-          //   source={{
-          //     uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/1200px-Instagram_logo.svg.png",
-          //   }}
         />
       </View>
 
       <KeyboardAvoidingView>
         <View style={{ alignItems: "center", justifyContent: "center" }}>
-          <Text style={{ fontSize: 17, fontWeight: "bold", marginTop: 20 }}>
+          <Text
+            style={{
+              fontSize: 17,
+              marginTop: 20,
+              fontFamily: "Poppins_700Bold",
+            }}
+          >
             Register to Your Account
           </Text>
         </View>
+
         <View style={{ marginTop: 40 }}>
           <View
             style={{
@@ -74,13 +88,14 @@ const RegisterScreen = () => {
               borderWidth: 1,
               paddingVertical: 5,
               borderRadius: 5,
+              backgroundColor: "white",
             }}
           >
             <Ionicons
               style={{ marginLeft: 8 }}
               name='person'
               size={24}
-              color='grey'
+              color='black'
             />
             <TextInput
               value={name}
@@ -106,13 +121,14 @@ const RegisterScreen = () => {
               borderWidth: 1,
               paddingVertical: 5,
               borderRadius: 5,
+              backgroundColor: "white",
             }}
           >
             <MaterialIcons
               style={{ marginLeft: 8 }}
               name='email'
               size={24}
-              color='gray'
+              color='black'
             />
             <TextInput
               value={email}
@@ -138,13 +154,14 @@ const RegisterScreen = () => {
               borderWidth: 1,
               paddingVertical: 5,
               borderRadius: 5,
+              backgroundColor: "white",
             }}
           >
             <AntDesign
               style={{ marginLeft: 8 }}
               name='lock'
               size={24}
-              color='gray'
+              color='black'
             />
             <TextInput
               secureTextEntry={true}
@@ -162,7 +179,7 @@ const RegisterScreen = () => {
           </View>
         </View>
 
-        <View style={{ marginTop: 45 }}>
+        <View style={{ marginTop: 20 }}>
           <Pressable
             onPress={handleRegister}
             style={{
@@ -178,9 +195,9 @@ const RegisterScreen = () => {
             <Text
               style={{
                 textAlign: "center",
-                fontWeight: "bold",
                 fontSize: 16,
                 color: "white",
+                fontFamily: "Poppins_700Bold",
               }}
             >
               Register
@@ -190,7 +207,13 @@ const RegisterScreen = () => {
             onPress={() => navigation.goBack()}
             style={{ marginTop: 10 }}
           >
-            <Text style={{ textAlign: "center", fontSize: 16 }}>
+            <Text
+              style={{
+                textAlign: "center",
+                fontSize: 16,
+                fontFamily: "Poppins_300Light",
+              }}
+            >
               Already have an account?{" "}
               <Text style={{ color: "#007FFF", marginLeft: 10 }}>Sign In</Text>
             </Text>
@@ -203,4 +226,41 @@ const RegisterScreen = () => {
 
 export default RegisterScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  circleContainer1: {
+    position: "absolute",
+    // top: -12,
+    // left: 0,
+    // // right: 0,
+    flexDirection: "row",
+    // justifyContent: "space-between",
+  },
+  circleContainer1: {
+    position: "absolute",
+    top: -70,
+    left: -140,
+    // right: 0,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  circleContainer2: {
+    position: "absolute",
+    top: -12,
+    left: -250,
+    // right: 0,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  circle1: {
+    width: 175,
+    height: 175,
+    borderRadius: 100,
+    backgroundColor: "#735D7F", // You can change the color
+  },
+  circle2: {
+    width: 175,
+    height: 175,
+    borderRadius: 100,
+    backgroundColor: "#AB83A1", // You can change the color
+  },
+});

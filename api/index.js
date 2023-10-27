@@ -369,3 +369,66 @@ app.get("/get-saved-posts/:userId", async (req, res) => {
     res.status(500).json({ message: "Error while getting the saved posts" });
   }
 });
+
+//endpoint for delete a own post
+app.delete("/delete-post/:postId", async (req, res) => {
+  try {
+    const postId = req.params.postId;
+
+    //delete the post
+    await Post.findByIdAndDelete(postId);
+
+    //delete the post from all the users saved posts
+    await User.updateMany({}, { $pull: { SavedPosts: postId } });
+
+    res.status(200).json({ message: "Post deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Error while deleting the post" });
+  }
+});
+
+//endpoint for get one post by post id
+app.get("/get-post/:postId", async (req, res) => {
+  try {
+    const postId = req.params.postId;
+
+    const post = await Post.findById(postId).populate("user", [
+      "name",
+      "profilePicture",
+    ]);
+
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    res.status(200).json({ post });
+  } catch (error) {
+    res.status(500).json({ message: "Error while getting the post" });
+  }
+});
+
+//endpoint for update own post
+app.put("/update-post/:postId", async (req, res) => {
+  try {
+    const postId = req.params.postId;
+
+    const { content, PostImage } = req.body;
+
+    const updatedPost = await Post.findByIdAndUpdate(
+      postId,
+      {
+        content,
+        PostImage,
+      },
+      { new: true }
+    );
+
+    if (!updatedPost) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    res.status(200).json({ message: "Post updated successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Error while updating the post" });
+  }
+});
