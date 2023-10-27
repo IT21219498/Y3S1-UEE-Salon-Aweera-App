@@ -1,4 +1,4 @@
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import React, { useContext } from 'react';
 import Header from '../components/Header';
 import PackageCards from '../components/PackageCards';
@@ -12,11 +12,12 @@ const SelectPackageScreen = () => {
   const isAppointment = true;
   const isBackNavigation = true;
   return (
-    <View style={{ backgroundColor: '#F7F0FC' }}>
+    <View style={{ backgroundColor: '#F7F0FC', height: 1000 }}>
       <Header
         title={'Make an Appointment'}
         isBackNavigation={isBackNavigation}
       />
+
       <View
         style={{
           alignItems: 'left',
@@ -55,7 +56,9 @@ const SelectPackageScreen = () => {
           marginBottom: 10,
         }}
       />
-      <PackageCards isAppointment={isAppointment} />
+      <ScrollView>
+        <PackageCards isAppointment={isAppointment} />
+      </ScrollView>
     </View>
   );
 };

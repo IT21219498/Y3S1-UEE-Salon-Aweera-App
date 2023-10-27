@@ -12,28 +12,28 @@ import {
   RefreshControl,
   Modal,
   Alert,
-} from "react-native";
+} from 'react-native';
 import React, {
   useCallback,
   useContext,
   useEffect,
   useLayoutEffect,
   useState,
-} from "react";
-import { UserType } from "../context/UserContext";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import jwt_decode from "jwt-decode";
-import axios from "axios";
+} from 'react';
+import { UserType } from '../context/UserContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import jwt_decode from 'jwt-decode';
+import axios from 'axios';
 import {
   AntDesign,
   Ionicons,
   FontAwesome,
   MaterialIcons,
   Entypo,
-} from "@expo/vector-icons";
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
-import Header from "../components/Header";
-import * as ImagePicker from "expo-image-picker";
+} from '@expo/vector-icons';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import Header from '../components/Header';
+import * as ImagePicker from 'expo-image-picker';
 
 const HomeScreen = () => {
   const { userId, setUserId, user, setUser, loginUser, setLoginUser } =
@@ -43,7 +43,7 @@ const HomeScreen = () => {
   const [image, setImage] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const [mpostId, setmPostId] = useState(null);
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState('');
 
   const [refreshing, setRefreshing] = React.useState(false);
 
@@ -81,7 +81,7 @@ const HomeScreen = () => {
 
   const handleDeleteUpdate = (postId) => {
     console.log(
-      "🚀 ~ file: HomeScreen.js:72 ~ handleDeleteUpdate ~ postId:",
+      '🚀 ~ file: HomeScreen.js:72 ~ handleDeleteUpdate ~ postId:',
       postId
     );
 
@@ -91,7 +91,7 @@ const HomeScreen = () => {
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const token = await AsyncStorage.getItem("authToken");
+      const token = await AsyncStorage.getItem('authToken');
       const decodedToken = jwt_decode(token);
       const userId = decodedToken.userId;
       setUserId(userId);
@@ -112,7 +112,7 @@ const HomeScreen = () => {
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const token = await AsyncStorage.getItem("authToken");
+      const token = await AsyncStorage.getItem('authToken');
       const decodedToken = jwt_decode(token);
       const userId = decodedToken.userId;
       setUserId(userId);
@@ -132,20 +132,20 @@ const HomeScreen = () => {
     }
 
     axios
-      .post("http://192.168.1.6:5000/create-post", postData)
+      .post('http://192.168.1.25:5000/create-post', postData)
       .then((response) => {
         onRefresh();
-        setContent("");
+        setContent('');
         setImage(null);
       })
       .catch((err) => {
-        console.log("error creating post", err);
+        console.log('error creating post', err);
       });
   };
 
   const fetchProfile = async () => {
     try {
-      const res = await axios.get(`http://192.168.1.6:5000/profile/${userId}`);
+      const res = await axios.get(`http://192.168.1.25:5000/profile/${userId}`);
       const { user } = res.data;
       setUser(user);
     } catch (err) {
@@ -155,19 +155,19 @@ const HomeScreen = () => {
 
   const fetchPosts = async () => {
     try {
-      const res = await axios.get("http://192.168.1.6:5000/get-posts");
+      const res = await axios.get('http://192.168.1.25:5000/get-posts');
       // console.log("posts", res.data);
 
       setPosts(res.data);
     } catch (err) {
-      console.log("error fetching posts", err);
+      console.log('error fetching posts', err);
     }
   };
 
   const handleLike = async (postId) => {
     try {
       const res = await axios.put(
-        `http://192.168.1.6:5000/posts/${postId}/${userId}/like`
+        `http://192.168.1.25:5000/posts/${postId}/${userId}/like`
       );
       const updatedPost = res.data;
       const updatedPosts = posts?.map((post) =>
@@ -176,14 +176,14 @@ const HomeScreen = () => {
 
       setPosts(updatedPosts);
     } catch (err) {
-      console.log("error liking post", err);
+      console.log('error liking post', err);
     }
   };
 
   const handleDisLike = async (postId) => {
     try {
       const res = await axios.put(
-        `http://192.168.1.6:5000/posts/${postId}/${userId}/unlike`
+        `http://192.168.1.25:5000/posts/${postId}/${userId}/unlike`
       );
       const updatedPost = res.data;
       const updatedPosts = posts?.map((post) =>
@@ -192,48 +192,50 @@ const HomeScreen = () => {
 
       setPosts(updatedPosts);
     } catch (err) {
-      console.log("Error unliking post", err);
+      console.log('Error unliking post', err);
     }
   };
 
   const handleSavePost = async (postId) => {
     try {
       const res = await axios.put(
-        `http://192.168.1.6:5000/save-post/${postId}/${userId}`
+        `http://192.168.1.25:5000/save-post/${postId}/${userId}`
       );
       fetchProfile();
     } catch (err) {
-      console.log("Error saving post", err);
+      console.log('Error saving post', err);
     }
   };
 
   const handleUnSavePost = async (postId) => {
     try {
       const res = await axios.put(
-        `http://192.168.1.6:5000/unsave-post/${postId}/${userId}`
+        `http://192.168.1.25:5000/unsave-post/${postId}/${userId}`
       );
       fetchProfile();
     } catch (err) {
-      console.log("Error saving post", err);
+      console.log('Error saving post', err);
     }
   };
 
   const handlePostDelete = async (postId) => {
     try {
       const res = await axios.delete(
-        `http://192.168.1.6:5000/delete-post/${postId}`
+        `http://192.168.1.25:5000/delete-post/${postId}`
       );
       onRefresh();
-      Alert.alert("Post Deleted Successfully");
+      Alert.alert('Post Deleted Successfully');
     } catch (err) {
-      console.log("Error deleting post", err);
-      Alert.alert("Post Deletion failed", "Something went wrong");
+      console.log('Error deleting post', err);
+      Alert.alert('Post Deletion failed', 'Something went wrong');
     }
   };
 
   const getOnePost = async (postId) => {
     try {
-      const res = await axios.get(`http://192.168.1.6:5000/get-post/${postId}`);
+      const res = await axios.get(
+        `http://192.168.1.25:5000/get-post/${postId}`
+      );
       const { post } = res.data;
       setPosts(post);
     } catch (err) {
@@ -242,17 +244,17 @@ const HomeScreen = () => {
   };
 
   return (
-    <View style={{ backgroundColor: "#F7F0FC", height: 1000 }}>
-      <Header title={"Explore Salon Feed"} />
+    <View style={{ backgroundColor: '#F7F0FC', height: 1000 }}>
+      <Header title={'Explore Salon Feed'} />
       <ScrollView
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
-        style={{ flex: 1, backgroundColor: "#F7F0FC" }}
+        style={{ flex: 1, backgroundColor: '#F7F0FC' }}
       >
         <View
           style={{
-            flexDirection: "row",
+            flexDirection: 'row',
             marginLeft: 10,
             marginTop: 2,
           }}
@@ -261,41 +263,41 @@ const HomeScreen = () => {
             style={{
               flex: 1, // Take up available space
               marginRight: 10, // Add spacing between input and button
-              backgroundColor: "white", // Background color for input
+              backgroundColor: 'white', // Background color for input
               borderRadius: 10,
-              borderColor: "#AB83A1",
+              borderColor: '#AB83A1',
               borderWidth: 1,
-              flexDirection: "row", // Align items in one line
-              alignItems: "center", // Center items vertically
+              flexDirection: 'row', // Align items in one line
+              alignItems: 'center', // Center items vertically
               marginTop: 15,
             }}
           >
             <TextInput
               style={{
-                color: "grey",
+                color: 'grey',
                 marginVertical: 10,
-                width: "70%", // Take up 70% of available width
+                width: '70%', // Take up 70% of available width
                 padding: 10, // Add padding inside input
               }}
               value={content}
               onChangeText={(text) => setContent(text)}
-              placeholderTextColor={"black"}
-              placeholder='Type your caption here...'
+              placeholderTextColor={'black'}
+              placeholder="Type your caption here..."
               multiline
             />
 
             <View
               style={{
                 flex: 1,
-                alignItems: "center",
-                justifyContent: "center",
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
             >
               <TouchableOpacity onPress={pickImage}>
                 <MaterialIcons
-                  name='add-photo-alternate'
+                  name="add-photo-alternate"
                   size={35}
-                  color='black'
+                  color="black"
                 />
               </TouchableOpacity>
               {image && (
@@ -313,18 +315,18 @@ const HomeScreen = () => {
 
                     <TouchableOpacity
                       style={{
-                        position: "absolute",
+                        position: 'absolute',
                         right: 0,
                         top: 0,
                         borderRadius: 50,
                         width: 30,
                         height: 30,
-                        alignItems: "center",
-                        justifyContent: "center",
+                        alignItems: 'center',
+                        justifyContent: 'center',
                       }}
                       onPress={() => setImage(null)}
                     >
-                      <MaterialIcons name='cancel' size={30} color='red' />
+                      <MaterialIcons name="cancel" size={30} color="red" />
                     </TouchableOpacity>
                   </View>
                 </>
@@ -336,7 +338,7 @@ const HomeScreen = () => {
         <TouchableOpacity
           style={styles.buttonContainer}
           onPress={handlePostSubmit}
-          title='Share'
+          title="Share"
         >
           <Text style={styles.buttonText}>Share Post</Text>
         </TouchableOpacity>
@@ -346,7 +348,7 @@ const HomeScreen = () => {
             <>
               <>
                 <Modal
-                  animationType='slide'
+                  animationType="slide"
                   transparent={true}
                   visible={openModal}
                   onRequestClose={() => {
@@ -356,37 +358,37 @@ const HomeScreen = () => {
                   <TouchableOpacity
                     style={{
                       flex: 1,
-                      justifyContent: "center",
-                      alignItems: "center",
-                      backgroundColor: "rgba(0, 0, 0, 0.5)",
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      backgroundColor: 'rgba(0, 0, 0, 0.5)',
                     }}
                     onPress={() => setOpenModal(false)}
                   >
                     <View
                       style={{
-                        backgroundColor: "white",
+                        backgroundColor: 'white',
                         borderWidth: 2,
-                        borderColor: "#AB83A1",
+                        borderColor: '#AB83A1',
                         borderRadius: 10,
-                        width: "80%",
-                        height: "auto",
+                        width: '80%',
+                        height: 'auto',
                       }}
                     >
                       <TouchableOpacity
                         style={{
-                          backgroundColor: "white",
-                          alignItems: "center",
-                          alignSelf: "center",
+                          backgroundColor: 'white',
+                          alignItems: 'center',
+                          alignSelf: 'center',
                           width: 180,
                         }}
                         // onPress={handleSaveCategory}
                       >
                         <Text
                           style={{
-                            color: "black",
+                            color: 'black',
                             fontSize: 18,
                             margin: 15,
-                            fontFamily: "Poppins_900Black",
+                            fontFamily: 'Poppins_900Black',
                           }}
                         >
                           Edit Post
@@ -394,20 +396,20 @@ const HomeScreen = () => {
                       </TouchableOpacity>
                       <TouchableOpacity
                         style={{
-                          alignItems: "center",
-                          alignSelf: "center",
-                          width: "100%",
-                          borderColor: "#AB83A1",
+                          alignItems: 'center',
+                          alignSelf: 'center',
+                          width: '100%',
+                          borderColor: '#AB83A1',
                           borderWidth: 1,
                         }}
                         onPress={() => handlePostDelete(mpostId)}
                       >
                         <Text
                           style={{
-                            color: "black",
+                            color: 'black',
                             fontSize: 18,
                             margin: 15,
-                            fontFamily: "Poppins_900Black",
+                            fontFamily: 'Poppins_900Black',
                           }}
                         >
                           Delete
@@ -420,9 +422,9 @@ const HomeScreen = () => {
               <View
                 style={{
                   padding: 15,
-                  borderColor: "#D0D0D0",
+                  borderColor: '#D0D0D0',
                   borderTopWidth: 1,
-                  flexDirection: "row",
+                  flexDirection: 'row',
                   gap: 10,
                   marginVertical: 10,
                 }}
@@ -438,46 +440,46 @@ const HomeScreen = () => {
                   />
                 </View>
                 <View>
-                  <View style={{ flexDirection: "row" }}>
+                  <View style={{ flexDirection: 'row' }}>
                     <Text
                       style={{
                         fontSize: 15,
                         marginBottom: 4,
-                        fontFamily: "Poppins_700Bold",
+                        fontFamily: 'Poppins_700Bold',
                       }}
                     >
                       {post?.user?.name}
                     </Text>
 
                     <View
-                      style={{ marginLeft: 60, flexDirection: "row", gap: 10 }}
+                      style={{ marginLeft: 60, flexDirection: 'row', gap: 10 }}
                     >
                       {user.SavedPosts?.includes(post?._id) ? (
                         <FontAwesome
-                          name='bookmark'
+                          name="bookmark"
                           size={28}
-                          color='black'
+                          color="black"
                           onPress={() => handleUnSavePost(post?._id)}
                         />
                       ) : (
                         <FontAwesome
-                          name='bookmark-o'
+                          name="bookmark-o"
                           size={28}
-                          color='black'
+                          color="black"
                           onPress={() => handleSavePost(post?._id)}
                         />
                       )}
 
                       <Entypo
                         marginTop={-7}
-                        name='dots-three-horizontal'
+                        name="dots-three-horizontal"
                         size={25}
-                        color='black'
+                        color="black"
                         onPress={() => handleDeleteUpdate(post?._id)}
                       />
                     </View>
                   </View>
-                  <Text style={{ fontFamily: "Poppins_300Light" }}>
+                  <Text style={{ fontFamily: 'Poppins_300Light' }}>
                     {post?.content}
                   </Text>
                   {post?.PostImage && (
@@ -493,8 +495,8 @@ const HomeScreen = () => {
                   )}
                   <View
                     style={{
-                      flexDirection: "row",
-                      alignItems: "center",
+                      flexDirection: 'row',
+                      alignItems: 'center',
                       gap: 10,
                       marginTop: 10,
                     }}
@@ -502,29 +504,29 @@ const HomeScreen = () => {
                     {post?.likes?.includes(userId) ? (
                       <AntDesign
                         onPress={() => handleDisLike(post?._id)}
-                        name='heart'
+                        name="heart"
                         size={28}
-                        color='red'
+                        color="red"
                       />
                     ) : (
                       <AntDesign
                         onPress={() => handleLike(post?._id)}
-                        name='hearto'
+                        name="hearto"
                         size={28}
-                        color='black'
+                        color="black"
                       />
                     )}
                     <Ionicons
-                      name='share-social-outline'
+                      name="share-social-outline"
                       size={28}
-                      color='black'
+                      color="black"
                     />
                   </View>
                   <Text
                     style={{
                       marginTop: 7,
-                      color: "gray",
-                      fontFamily: "Poppins_300Light",
+                      color: 'gray',
+                      fontFamily: 'Poppins_300Light',
                     }}
                   >
                     {post?.likes?.length} likes
@@ -546,15 +548,15 @@ const styles = StyleSheet.create({
     width: 100,
     height: 30,
     marginLeft: 270,
-    backgroundColor: "#735D7F",
+    backgroundColor: '#735D7F',
     borderRadius: 10,
     marginTop: 10,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   buttonText: {
-    fontFamily: "Poppins_700Bold",
-    color: "white",
+    fontFamily: 'Poppins_700Bold',
+    color: 'white',
     fontSize: 16,
   },
 });

@@ -6,22 +6,22 @@ import {
   ScrollView,
   Image,
   RefreshControl,
-} from "react-native";
-import React, { useCallback } from "react";
-import Header from "../components/Header";
-import { useEffect } from "react";
-import { useContext } from "react";
-import { UserType } from "../context/UserContext";
-import { useState } from "react";
-import axios from "axios";
+} from 'react-native';
+import React, { useCallback } from 'react';
+import Header from '../components/Header';
+import { useEffect } from 'react';
+import { useContext } from 'react';
+import { UserType } from '../context/UserContext';
+import { useState } from 'react';
+import axios from 'axios';
 import {
   AntDesign,
   Ionicons,
   FontAwesome,
   MaterialIcons,
   Entypo,
-} from "@expo/vector-icons";
-import { useFocusEffect } from "@react-navigation/native";
+} from '@expo/vector-icons';
+import { useFocusEffect } from '@react-navigation/native';
 
 const SavedPostsScreen = () => {
   const [posts, setPosts] = useState([]);
@@ -45,7 +45,7 @@ const SavedPostsScreen = () => {
   const fetchPosts = async () => {
     try {
       const res = await axios.get(
-        `http://192.168.1.6:5000/get-saved-posts/${userId}`
+        `http://192.168.1.25:5000/get-saved-posts/${userId}`
       );
       const { posts } = res.data;
       setPosts(posts);
@@ -63,7 +63,7 @@ const SavedPostsScreen = () => {
   const handleLike = async (postId) => {
     try {
       const res = await axios.put(
-        `http://192.168.1.6:5000/posts/${postId}/${userId}/like`
+        `http://192.168.1.25:5000/posts/${postId}/${userId}/like`
       );
       const updatedPost = res.data;
       const updatedPosts = posts?.map((post) =>
@@ -72,14 +72,14 @@ const SavedPostsScreen = () => {
 
       setPosts(updatedPosts);
     } catch (err) {
-      console.log("error liking post", err);
+      console.log('error liking post', err);
     }
   };
 
   const handleDisLike = async (postId) => {
     try {
       const res = await axios.put(
-        `http://192.168.1.6:5000/posts/${postId}/${userId}/unlike`
+        `http://192.168.1.25:5000/posts/${postId}/${userId}/unlike`
       );
       const updatedPost = res.data;
       const updatedPosts = posts?.map((post) =>
@@ -88,39 +88,39 @@ const SavedPostsScreen = () => {
 
       setPosts(updatedPosts);
     } catch (err) {
-      console.log("Error unliking post", err);
+      console.log('Error unliking post', err);
     }
   };
 
   const handleUnSavePost = async (postId) => {
     try {
       const res = await axios.put(
-        `http://192.168.1.6:5000/unsave-post/${postId}/${userId}`
+        `http://192.168.1.25:5000/unsave-post/${postId}/${userId}`
       );
 
       onRefresh();
     } catch (err) {
-      console.log("Error saving post", err);
+      console.log('Error saving post', err);
     }
   };
 
   return (
-    <View style={{ backgroundColor: "#F7F0FC", height: 1000 }}>
-      <Header title={"Saved Posts"} />
+    <View style={{ backgroundColor: '#F7F0FC', height: 1000 }}>
+      <Header title={'Saved Posts'} />
       <ScrollView
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
-        style={{ flex: 1, backgroundColor: "#F7F0FC" }}
+        style={{ flex: 1, backgroundColor: '#F7F0FC' }}
       >
         <View style={{ marTop: 20 }}>
           {posts?.map((post) => (
             <View
               style={{
                 padding: 15,
-                borderColor: "#D0D0D0",
+                borderColor: '#D0D0D0',
                 borderTopWidth: 1,
-                flexDirection: "row",
+                flexDirection: 'row',
                 gap: 10,
                 marginVertical: 10,
               }}
@@ -136,11 +136,11 @@ const SavedPostsScreen = () => {
                 />
               </View>
               <View>
-                <View style={{ flexDirection: "row" }}>
+                <View style={{ flexDirection: 'row' }}>
                   <Text
                     style={{
                       fontSize: 15,
-                      fontWeight: "bold",
+                      fontWeight: 'bold',
                       marginBottom: 4,
                     }}
                   >
@@ -148,28 +148,28 @@ const SavedPostsScreen = () => {
                   </Text>
 
                   <View
-                    style={{ marginLeft: 100, flexDirection: "row", gap: 10 }}
+                    style={{ marginLeft: 100, flexDirection: 'row', gap: 10 }}
                   >
                     {user.SavedPosts?.includes(post?._id) ? (
                       <FontAwesome
-                        name='bookmark'
+                        name="bookmark"
                         size={28}
-                        color='black'
+                        color="black"
                         onPress={() => handleUnSavePost(post?._id)}
                       />
                     ) : (
                       <FontAwesome
-                        name='bookmark-o'
+                        name="bookmark-o"
                         size={28}
-                        color='black'
+                        color="black"
                         onPress={() => handleSavePost(post?._id)}
                       />
                     )}
 
                     <Entypo
-                      name='dots-three-vertical'
+                      name="dots-three-vertical"
                       size={28}
-                      color='black'
+                      color="black"
                     />
                   </View>
                 </View>
@@ -187,8 +187,8 @@ const SavedPostsScreen = () => {
                 )}
                 <View
                   style={{
-                    flexDirection: "row",
-                    alignItems: "center",
+                    flexDirection: 'row',
+                    alignItems: 'center',
                     gap: 10,
                     marginTop: 10,
                   }}
@@ -196,25 +196,25 @@ const SavedPostsScreen = () => {
                   {post?.likes?.includes(userId) ? (
                     <AntDesign
                       onPress={() => handleDisLike(post?._id)}
-                      name='heart'
+                      name="heart"
                       size={28}
-                      color='red'
+                      color="red"
                     />
                   ) : (
                     <AntDesign
                       onPress={() => handleLike(post?._id)}
-                      name='hearto'
+                      name="hearto"
                       size={28}
-                      color='black'
+                      color="black"
                     />
                   )}
                   <Ionicons
-                    name='share-social-outline'
+                    name="share-social-outline"
                     size={28}
-                    color='black'
+                    color="black"
                   />
                 </View>
-                <Text style={{ marginTop: 7, color: "gray" }}>
+                <Text style={{ marginTop: 7, color: 'gray' }}>
                   {post?.likes?.length} likes {post?.replies?.length} reply
                 </Text>
               </View>

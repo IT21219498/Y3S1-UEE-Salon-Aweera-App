@@ -1,7 +1,7 @@
 import {
   Modal,
   Pressable,
-  SafeAreaView,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -46,7 +46,7 @@ const ExlorePackageScreen = () => {
     }
   };
   return (
-    <View style={{ backgroundColor: '#F7F0FC' }}>
+    <View style={{ backgroundColor: '#F7F0FC', height: 1000 }}>
       <Header title={'Explore Packages'} isBackNavigation={isBackNavigation} />
       <View
         style={{
@@ -112,138 +112,139 @@ const ExlorePackageScreen = () => {
           marginBottom: 10,
         }}
       />
-
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={openModal}
-        onRequestClose={() => {
-          setOpenModal(!openModal);
-        }}
-      >
-        <View
-          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
+      <ScrollView>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={openModal}
+          onRequestClose={() => {
+            setOpenModal(!openModal);
+          }}
         >
           <View
-            style={{
-              backgroundColor: 'white',
-              borderWidth: 2,
-              borderColor: '#AB83A1',
-              padding: 20,
-              borderRadius: 10,
-              width: '80%',
-            }}
+            style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
           >
-            <Text
+            <View
               style={{
-                fontSize: 20,
-                marginBottom: 20,
-                textAlign: 'center',
-                fontWeight: 'bold',
-              }}
-            >
-              Create Package
-            </Text>
-            <Text
-              style={{
-                marginBottom: 10,
-                padding: 5,
-                paddingTop: 0,
-                paddingBottom: 0,
-                fontSize: 18,
-                fontWeight: '500',
-              }}
-            >
-              Package Name
-            </Text>
-            <TextInput
-              placeholder="Package Name"
-              placeholderTextColor="#999999"
-              style={{
-                borderWidth: 1,
-                borderColor: 'gray',
-                padding: 10,
-                marginBottom: 10,
-                borderRadius: 5,
-                color: 'black',
-                textAlignVertical: 'top',
-              }}
-              value={packageName}
-              onChangeText={(text) => setPackageName(text)}
-            />
-            <Text
-              style={{
-                marginBottom: 10,
-                marginTop: 10,
-                padding: 5,
-                paddingTop: 0,
-                paddingBottom: 0,
-                fontSize: 18,
-                fontWeight: '500',
-              }}
-            >
-              Package Image URL
-            </Text>
-            <TextInput
-              placeholder="Package URL"
-              placeholderTextColor="#999999"
-              style={{
-                borderWidth: 1,
-                borderColor: 'gray',
-                padding: 10,
-                marginBottom: 10,
-                borderRadius: 5,
-                color: 'black',
-                textAlignVertical: 'top',
-              }}
-              value={imageUrl}
-              onChangeText={(text) => setImageUrl(text)}
-            />
-            <TouchableOpacity
-              style={{
-                backgroundColor: '#735D7F',
-                padding: 10,
-                marginTop: 10,
-                borderRadius: 5,
-                alignItems: 'center',
-                alignSelf: 'center',
-                width: 180,
-              }}
-              onPress={handleSavePackage}
-            >
-              <Text
-                style={{ color: 'white', fontWeight: 'bold', fontSize: 18 }}
-              >
-                Save
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{
-                marginTop: 10,
-                alignItems: 'center',
-                alignSelf: 'center',
-                width: 180,
-                borderWidth: 1,
-                borderColor: 'black',
-                padding: 8,
-                borderRadius: 5,
-              }}
-              onPress={() => {
-                setOpenModal(!openModal);
-                setPackageName('');
-                setImageUrl('');
+                backgroundColor: 'white',
+                borderWidth: 2,
+                borderColor: '#AB83A1',
+                padding: 20,
+                borderRadius: 10,
+                width: '80%',
               }}
             >
               <Text
-                style={{ color: '#AB83A1', fontWeight: 'bold', fontSize: 18 }}
+                style={{
+                  fontSize: 20,
+                  marginBottom: 20,
+                  textAlign: 'center',
+                  fontWeight: 'bold',
+                }}
               >
-                Cancel
+                Create Package
               </Text>
-            </TouchableOpacity>
+              <Text
+                style={{
+                  marginBottom: 10,
+                  padding: 5,
+                  paddingTop: 0,
+                  paddingBottom: 0,
+                  fontSize: 18,
+                  fontWeight: '500',
+                }}
+              >
+                Package Name
+              </Text>
+              <TextInput
+                placeholder="Package Name"
+                placeholderTextColor="#999999"
+                style={{
+                  borderWidth: 1,
+                  borderColor: 'gray',
+                  padding: 10,
+                  marginBottom: 10,
+                  borderRadius: 5,
+                  color: 'black',
+                  textAlignVertical: 'top',
+                }}
+                value={packageName}
+                onChangeText={(text) => setPackageName(text)}
+              />
+              <Text
+                style={{
+                  marginBottom: 10,
+                  marginTop: 10,
+                  padding: 5,
+                  paddingTop: 0,
+                  paddingBottom: 0,
+                  fontSize: 18,
+                  fontWeight: '500',
+                }}
+              >
+                Package Image URL
+              </Text>
+              <TextInput
+                placeholder="Package URL"
+                placeholderTextColor="#999999"
+                style={{
+                  borderWidth: 1,
+                  borderColor: 'gray',
+                  padding: 10,
+                  marginBottom: 10,
+                  borderRadius: 5,
+                  color: 'black',
+                  textAlignVertical: 'top',
+                }}
+                value={imageUrl}
+                onChangeText={(text) => setImageUrl(text)}
+              />
+              <TouchableOpacity
+                style={{
+                  backgroundColor: '#735D7F',
+                  padding: 10,
+                  marginTop: 10,
+                  borderRadius: 5,
+                  alignItems: 'center',
+                  alignSelf: 'center',
+                  width: 180,
+                }}
+                onPress={handleSavePackage}
+              >
+                <Text
+                  style={{ color: 'white', fontWeight: 'bold', fontSize: 18 }}
+                >
+                  Save
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{
+                  marginTop: 10,
+                  alignItems: 'center',
+                  alignSelf: 'center',
+                  width: 180,
+                  borderWidth: 1,
+                  borderColor: 'black',
+                  padding: 8,
+                  borderRadius: 5,
+                }}
+                onPress={() => {
+                  setOpenModal(!openModal);
+                  setPackageName('');
+                  setImageUrl('');
+                }}
+              >
+                <Text
+                  style={{ color: '#AB83A1', fontWeight: 'bold', fontSize: 18 }}
+                >
+                  Cancel
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
-      </Modal>
-      <PackageCards isAppointment={isAppointment} />
+        </Modal>
+        <PackageCards isAppointment={isAppointment} />
+      </ScrollView>
     </View>
   );
 };
