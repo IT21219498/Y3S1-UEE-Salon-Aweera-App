@@ -9,16 +9,16 @@ import {
   KeyboardAvoidingView,
   Alert,
   ScrollView,
-} from "react-native";
-import React, { useState } from "react";
-import { MaterialIcons, AntDesign, Ionicons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
-import axios from "axios";
+} from 'react-native';
+import React, { useState } from 'react';
+import { MaterialIcons, AntDesign, Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
 
 const RegisterScreen = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const navigation = useNavigation();
 
   const handleRegister = () => {
@@ -29,21 +29,21 @@ const RegisterScreen = () => {
     };
 
     axios
-      .post("http://192.168.1.25:5000/register", user)
+      .post('http://192.168.1.25:5000/register', user)
       .then((res) => {
         console.log(res);
-        Alert.alert("User Registered Successfully");
-        setName("");
-        setEmail("");
-        setPassword("");
+        Alert.alert('User Registered Successfully');
+        setName('');
+        setEmail('');
+        setPassword('');
       })
       .catch((err) => {
-        Alert.alert("Registration failed", "Something went wrong");
-        console.log("Error", err);
+        Alert.alert('Registration failed', 'Something went wrong');
+        console.log('Error', err);
       });
   };
   return (
-    <View style={{ flex: 1, backgroundColor: "#F7F0FC", alignItems: "center" }}>
+    <View style={{ flex: 1, backgroundColor: '#F7F0FC', alignItems: 'center' }}>
       {/* Add the two circles at the top */}
       <View style={styles.circleContainer}>
         <View style={styles.circleContainer2}>
@@ -58,20 +58,20 @@ const RegisterScreen = () => {
           style={{
             width: 200,
             height: 100,
-            resizeMode: "contain",
-            tintColor: "black",
+            resizeMode: 'contain',
+            tintColor: 'black',
           }}
-          source={require("../assets/aweera.png")}
+          source={require('../assets/aweera.png')}
         />
       </View>
 
       <KeyboardAvoidingView>
-        <View style={{ alignItems: "center", justifyContent: "center" }}>
+        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
           <Text
             style={{
               fontSize: 17,
               marginTop: 20,
-              fontFamily: "Poppins_700Bold",
+              fontFamily: 'Poppins_700Bold',
             }}
           >
             Register to Your Account
@@ -81,100 +81,100 @@ const RegisterScreen = () => {
         <View style={{ marginTop: 40 }}>
           <View
             style={{
-              flexDirection: "row",
-              alignItems: "center",
+              flexDirection: 'row',
+              alignItems: 'center',
               gap: 5,
-              borderColor: "#D0D0D0",
+              borderColor: '#D0D0D0',
               borderWidth: 1,
               paddingVertical: 5,
               borderRadius: 5,
-              backgroundColor: "white",
+              backgroundColor: 'white',
             }}
           >
             <Ionicons
               style={{ marginLeft: 8 }}
-              name='person'
+              name="person"
               size={24}
-              color='black'
+              color="black"
             />
             <TextInput
               value={name}
               onChangeText={(text) => setName(text)}
-              placeholderTextColor={"gray"}
+              placeholderTextColor={'gray'}
               style={{
-                color: "gray",
+                color: 'gray',
                 marginVertical: 10,
                 width: 300,
                 fontSize: name ? 16 : 16,
               }}
-              placeholder='Enter your name'
+              placeholder="Enter your name"
             />
           </View>
         </View>
         <View style={{ marginTop: 30 }}>
           <View
             style={{
-              flexDirection: "row",
-              alignItems: "center",
+              flexDirection: 'row',
+              alignItems: 'center',
               gap: 5,
-              borderColor: "#D0D0D0",
+              borderColor: '#D0D0D0',
               borderWidth: 1,
               paddingVertical: 5,
               borderRadius: 5,
-              backgroundColor: "white",
+              backgroundColor: 'white',
             }}
           >
             <MaterialIcons
               style={{ marginLeft: 8 }}
-              name='email'
+              name="email"
               size={24}
-              color='black'
+              color="black"
             />
             <TextInput
               value={email}
               onChangeText={(text) => setEmail(text)}
-              placeholderTextColor={"gray"}
+              placeholderTextColor={'gray'}
               style={{
-                color: "gray",
+                color: 'gray',
                 marginVertical: 10,
                 width: 300,
                 fontSize: email ? 16 : 16,
               }}
-              placeholder='Enter your email'
+              placeholder="Enter your email"
             />
           </View>
         </View>
         <View style={{ marginTop: 30 }}>
           <View
             style={{
-              flexDirection: "row",
-              alignItems: "center",
+              flexDirection: 'row',
+              alignItems: 'center',
               gap: 5,
-              borderColor: "#D0D0D0",
+              borderColor: '#D0D0D0',
               borderWidth: 1,
               paddingVertical: 5,
               borderRadius: 5,
-              backgroundColor: "white",
+              backgroundColor: 'white',
             }}
           >
             <AntDesign
               style={{ marginLeft: 8 }}
-              name='lock'
+              name="lock"
               size={24}
-              color='black'
+              color="black"
             />
             <TextInput
               secureTextEntry={true}
               value={password}
               onChangeText={(text) => setPassword(text)}
-              placeholderTextColor={"gray"}
+              placeholderTextColor={'gray'}
               style={{
-                color: "gray",
+                color: 'gray',
                 marginVertical: 10,
                 width: 300,
                 fontSize: password ? 16 : 16,
               }}
-              placeholder='Enter your password'
+              placeholder="Enter your password"
             />
           </View>
         </View>
@@ -184,20 +184,20 @@ const RegisterScreen = () => {
             onPress={handleRegister}
             style={{
               width: 200,
-              backgroundColor: "black",
+              backgroundColor: 'black',
               padding: 15,
               marginTop: 40,
-              marginLeft: "auto",
-              marginRight: "auto",
+              marginLeft: 'auto',
+              marginRight: 'auto',
               borderRadius: 6,
             }}
           >
             <Text
               style={{
-                textAlign: "center",
+                textAlign: 'center',
                 fontSize: 16,
-                color: "white",
-                fontFamily: "Poppins_700Bold",
+                color: 'white',
+                fontFamily: 'Poppins_700Bold',
               }}
             >
               Register
@@ -209,13 +209,13 @@ const RegisterScreen = () => {
           >
             <Text
               style={{
-                textAlign: "center",
+                textAlign: 'center',
                 fontSize: 16,
-                fontFamily: "Poppins_300Light",
+                fontFamily: 'Poppins_300Light',
               }}
             >
-              Already have an account?{" "}
-              <Text style={{ color: "#007FFF", marginLeft: 10 }}>Sign In</Text>
+              Already have an account?{' '}
+              <Text style={{ color: '#007FFF', marginLeft: 10 }}>Sign In</Text>
             </Text>
           </Pressable>
         </View>
@@ -228,39 +228,39 @@ export default RegisterScreen;
 
 const styles = StyleSheet.create({
   circleContainer1: {
-    position: "absolute",
+    position: 'absolute',
     // top: -12,
     // left: 0,
     // // right: 0,
-    flexDirection: "row",
+    flexDirection: 'row',
     // justifyContent: "space-between",
   },
   circleContainer1: {
-    position: "absolute",
+    position: 'absolute',
     top: -70,
     left: -140,
     // right: 0,
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   circleContainer2: {
-    position: "absolute",
+    position: 'absolute',
     top: -12,
     left: -250,
     // right: 0,
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   circle1: {
     width: 175,
     height: 175,
     borderRadius: 100,
-    backgroundColor: "#735D7F", // You can change the color
+    backgroundColor: '#735D7F', // You can change the color
   },
   circle2: {
     width: 175,
     height: 175,
     borderRadius: 100,
-    backgroundColor: "#AB83A1", // You can change the color
+    backgroundColor: '#AB83A1', // You can change the color
   },
 });

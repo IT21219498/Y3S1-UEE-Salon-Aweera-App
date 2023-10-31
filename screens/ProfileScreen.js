@@ -6,16 +6,16 @@ import {
   Pressable,
   TouchableOpacity,
   SafeAreaView,
-} from "react-native";
-import React, { useContext, useEffect, useState } from "react";
-import axios from "axios";
-import { UserType } from "../context/UserContext";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useNavigation } from "@react-navigation/native";
-import Header from "../components/Header";
-import * as ImagePicker from "expo-image-picker";
-import { MaterialIcons } from "@expo/vector-icons";
-import { Alert } from "react-native";
+} from 'react-native';
+import React, { useContext, useEffect, useState } from 'react';
+import axios from 'axios';
+import { UserType } from '../context/UserContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
+import Header from '../components/Header';
+import * as ImagePicker from 'expo-image-picker';
+import { MaterialIcons } from '@expo/vector-icons';
+import { Alert } from 'react-native';
 
 const ProfileScreen = () => {
   const { loginUser, setLoginUser, userId, setUserId } = useContext(UserType);
@@ -23,7 +23,7 @@ const ProfileScreen = () => {
   const navigation = useNavigation();
 
   const [image, setImage] = useState(null);
-  const [name, setName] = useState("");
+  const [name, setName] = useState('');
 
   useEffect(() => {
     fetchProfile();
@@ -31,7 +31,7 @@ const ProfileScreen = () => {
 
   const fetchProfile = async () => {
     try {
-      const res = await axios.get(`http://192.168.1.6:5000/profile/${userId}`);
+      const res = await axios.get(`http://192.168.1.25:5000/profile/${userId}`);
       const { user } = res.data;
       setUser(user);
     } catch (err) {
@@ -62,16 +62,16 @@ const ProfileScreen = () => {
       ProfilePicture: image,
     };
     axios
-      .put(`http://192.168.1.6:5000/update-user/${userId}`, user)
+      .put(`http://192.168.1.25:5000/update-user/${userId}`, user)
       .then((res) => {
-        Alert.alert("User Updated Successfully");
+        Alert.alert('User Updated Successfully');
         fetchProfile();
-        setName("");
-        setImage("");
+        setName('');
+        setImage('');
       })
       .catch((err) => {
-        Alert.alert("User update failed", "Something went wrong");
-        console.log("Error", err);
+        Alert.alert('User update failed', 'Something went wrong');
+        console.log('Error', err);
       });
   };
 
@@ -80,17 +80,17 @@ const ProfileScreen = () => {
   };
 
   const clearAuthToken = async () => {
-    await AsyncStorage.removeItem("authToken");
+    await AsyncStorage.removeItem('authToken');
 
     setLoginUser(false);
 
-    console.log("token removed");
+    console.log('token removed');
 
-    navigation.replace("Login");
+    navigation.replace('Login');
   };
   return (
-    <View style={{ backgroundColor: "#F7F0FC", height: 1000 }}>
-      <Header title='Profile' />
+    <View style={{ backgroundColor: '#F7F0FC', height: 1000 }}>
+      <Header title="Profile" />
       <View
         style={{
           marginTop: 10,
@@ -98,31 +98,31 @@ const ProfileScreen = () => {
           margin: 20,
           borderRadius: 10,
           borderWidth: 2,
-          borderColor: "#735D7F",
-          backgroundColor: "white",
-          width: "90%",
-          alignSelf: "center",
+          borderColor: '#735D7F',
+          backgroundColor: 'white',
+          width: '90%',
+          alignSelf: 'center',
           height: 400,
         }}
       >
         <View>
-          <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
-            <Text style={{ fontSize: 20, fontFamily: "Poppins_700Bold" }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+            <Text style={{ fontSize: 20, fontFamily: 'Poppins_700Bold' }}>
               {user?.name}
             </Text>
           </View>
           <View
             style={{
               marginTop: 5,
-              alignItems: "center",
+              alignItems: 'center',
               gap: 10,
             }}
           >
             <View
               style={{
                 // flex: 1,
-                alignItems: "center",
-                justifyContent: "center",
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
             >
               {image && (
@@ -140,18 +140,18 @@ const ProfileScreen = () => {
 
                     <TouchableOpacity
                       style={{
-                        position: "absolute",
+                        position: 'absolute',
                         right: 0,
                         top: 0,
                         borderRadius: 50,
                         width: 30,
                         height: 30,
-                        alignItems: "center",
-                        justifyContent: "center",
+                        alignItems: 'center',
+                        justifyContent: 'center',
                       }}
                       onPress={() => setImage(null)}
                     >
-                      <MaterialIcons name='cancel' size={30} color='red' />
+                      <MaterialIcons name="cancel" size={30} color="red" />
                     </TouchableOpacity>
                   </View>
                 </>
@@ -169,7 +169,7 @@ const ProfileScreen = () => {
                       height: 100,
                       borderRadius: 50,
                       marginTop: 10,
-                      alignSelf: "center",
+                      alignSelf: 'center',
                     }}
                   />
                 </Pressable>
@@ -179,8 +179,8 @@ const ProfileScreen = () => {
               <Text
                 style={{
                   fontSize: 15,
-                  fontWeight: "400",
-                  fontFamily: "Poppins_300Light",
+                  fontWeight: '400',
+                  fontFamily: 'Poppins_300Light',
                 }}
               >
                 Diploma in Hairdressing & Beauty Culture
@@ -188,8 +188,8 @@ const ProfileScreen = () => {
               <Text
                 style={{
                   fontSize: 15,
-                  fontWeight: "400",
-                  fontFamily: "Poppins_300Light",
+                  fontWeight: '400',
+                  fontFamily: 'Poppins_300Light',
                 }}
               >
                 Full time stylist
@@ -198,8 +198,8 @@ const ProfileScreen = () => {
               <Text
                 style={{
                   fontSize: 15,
-                  fontWeight: "400",
-                  fontFamily: "Poppins_300Light",
+                  fontWeight: '400',
+                  fontFamily: 'Poppins_300Light',
                 }}
               >
                 Experience : 2 years
@@ -209,42 +209,42 @@ const ProfileScreen = () => {
         </View>
         <View
           style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
+            flexDirection: 'row',
+            justifyContent: 'space-between',
             marginTop: 40,
           }}
         >
           <Pressable
             style={{
-              justifyContent: "center",
-              alignItems: "center",
+              justifyContent: 'center',
+              alignItems: 'center',
               padding: 10,
-              borderColor: "#D0D0D0",
-              backgroundColor: "#735D7F",
+              borderColor: '#D0D0D0',
+              backgroundColor: '#735D7F',
               borderWidth: 1,
               borderRadius: 5,
-              width: "48%",
+              width: '48%',
             }}
             onPress={editProfile}
           >
-            <Text style={{ fontFamily: "Poppins_700Bold", fontSize: 16 }}>
+            <Text style={{ fontFamily: 'Poppins_700Bold', fontSize: 16 }}>
               Edit Profile
             </Text>
           </Pressable>
           <Pressable
             onPress={logout}
             style={{
-              justifyContent: "center",
-              alignItems: "center",
+              justifyContent: 'center',
+              alignItems: 'center',
               padding: 10,
-              borderColor: "#D0D0D0",
-              backgroundColor: "#735D7F",
+              borderColor: '#D0D0D0',
+              backgroundColor: '#735D7F',
               borderWidth: 1,
               borderRadius: 5,
-              width: "48%",
+              width: '48%',
             }}
           >
-            <Text style={{ fontFamily: "Poppins_700Bold", fontSize: 16 }}>
+            <Text style={{ fontFamily: 'Poppins_700Bold', fontSize: 16 }}>
               Logout
             </Text>
           </Pressable>

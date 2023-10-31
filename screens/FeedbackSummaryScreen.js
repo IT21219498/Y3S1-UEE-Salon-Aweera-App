@@ -15,7 +15,8 @@ const FeedbackSummaryScreen = () => {
   const date = new Date();
   const fDate =
     date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
-  const fTime = date.getHours() + ':' + date.getMinutes();
+  const fTime =
+    date.getHours() + ':' + date.getMinutes().toString().padStart(2, '0');
   const route = useRoute();
   const feedbackId = route.params.feedbackId;
   return (

@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 
 const MyAppointmentsScreen = () => {
   const navigate = useNavigation();
-  const isBackNavigation = false;
+  const isBackNavigation = true;
   return (
     <View style={{ backgroundColor: '#F7F0FC', height: 1000 }}>
       <View>

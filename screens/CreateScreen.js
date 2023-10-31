@@ -6,17 +6,17 @@ import {
   TextInput,
   Button,
   Image,
-} from "react-native";
-import React, { useState, useContext, useEffect, useLayoutEffect } from "react";
-import { UserType } from "../context/UserContext";
-import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import jwt_decode from "jwt-decode";
-import { useNavigation } from "@react-navigation/native";
+} from 'react-native';
+import React, { useState, useContext, useEffect, useLayoutEffect } from 'react';
+import { UserType } from '../context/UserContext';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import jwt_decode from 'jwt-decode';
+import { useNavigation } from '@react-navigation/native';
 
 const CreateScreen = () => {
   const { userId, setUserId } = useContext(UserType);
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState('');
   const navigation = useNavigation();
 
   useLayoutEffect(() => {
@@ -36,7 +36,7 @@ const CreateScreen = () => {
   }, []);
   useEffect(() => {
     const fetchUsers = async () => {
-      const token = await AsyncStorage.getItem("authToken");
+      const token = await AsyncStorage.getItem('authToken');
       const decodedToken = jwt_decode(token);
       const userId = decodedToken.userId;
       setUserId(userId);
@@ -52,59 +52,59 @@ const CreateScreen = () => {
     }
 
     axios
-      .post("http://192.168.1.6:5000/create-post", postData)
+      .post('http://192.168.1.25:5000/create-post', postData)
       .then((response) => {
-        setContent("");
+        setContent('');
       })
       .catch((err) => {
-        console.log("error creating post", err);
+        console.log('error creating post', err);
       });
   };
   return (
     <SafeAreaView
-      style={{ padding: 10, backgroundColor: "#F7F0FC", height: 1000 }}
+      style={{ padding: 10, backgroundColor: '#F7F0FC', height: 1000 }}
     >
-      <View style={{ alignItems: "center", marginTop: 10 }}>
+      <View style={{ alignItems: 'center', marginTop: 10 }}>
         <Image
           style={{
             width: 200,
             height: 100,
-            resizeMode: "contain",
-            tintColor: "black",
+            resizeMode: 'contain',
+            tintColor: 'black',
           }}
-          source={require("../assets/aweera.png")}
+          source={require('../assets/aweera.png')}
         />
       </View>
       <View
         style={{
-          flexDirection: "row",
-          alignItems: "center",
+          flexDirection: 'row',
+          alignItems: 'center',
           gap: 10,
           padding: 10,
         }}
       >
-        <Text style={{ fontSize: 20, fontWeight: "bold", textAlign: "center" }}>
+        <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center' }}>
           Create Post
         </Text>
       </View>
       <View
-        style={{ flexDirection: "row", marginLeft: 10, borderColor: "#D0D0D0" }}
+        style={{ flexDirection: 'row', marginLeft: 10, borderColor: '#D0D0D0' }}
       >
         <TextInput
           style={{
-            color: "grey",
+            color: 'grey',
             marginVertical: 10,
             width: 300,
           }}
           value={content}
           onChangeText={(text) => setContent(text)}
-          placeholderTextColor={"black"}
-          placeholder='Type your message...'
+          placeholderTextColor={'black'}
+          placeholder="Type your message..."
           multiline
         />
       </View>
       <View style={{ marginTop: 40 }}>
-        <Button onPress={handlePostSubmit} title='Share Post' />
+        <Button onPress={handlePostSubmit} title="Share Post" />
       </View>
     </SafeAreaView>
   );
