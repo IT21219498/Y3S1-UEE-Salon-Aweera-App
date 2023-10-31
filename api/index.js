@@ -432,3 +432,5 @@ app.put("/update-post/:postId", async (req, res) => {
     res.status(500).json({ message: "Error while updating the post" });
   }
 });
+
+module.exports = app;

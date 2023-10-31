@@ -1,13 +1,13 @@
-const express = require('express');
-const Category = require('../models/category');
+const express = require("express");
+const Category = require("../models/category");
 const categoryRouter = express.Router();
 
-categoryRouter.get('/', async (req, res) => {
+categoryRouter.get("/", async (req, res) => {
   const categories = await Category.find();
-  res.send(categories);
+  res.status(200).send(categories);
 });
 
-categoryRouter.post('/create', async (req, res) => {
+categoryRouter.post("/create", async (req, res) => {
   const newCategory = new Category({
     name: req.body.name,
     imageUrl: req.body.imageUrl,
@@ -15,12 +15,12 @@ categoryRouter.post('/create', async (req, res) => {
   });
 
   const category = await newCategory.save();
-  const response = { message: 'New Category Created', data: category };
+  const response = { message: "New Category Created", data: category };
 
   res.status(201).send(response);
 });
 
-categoryRouter.put('/add-package/:id', async (req, res) => {
+categoryRouter.put("/add-package/:id", async (req, res) => {
   const category = await Category.findById(req.params.id);
 
   if (category) {
@@ -30,7 +30,7 @@ categoryRouter.put('/add-package/:id', async (req, res) => {
     });
 
     const updatedCategory = await category.save();
-    res.send({ message: 'Category Updated', category: updatedCategory });
+    res.send({ message: "Category Updated", category: updatedCategory });
   }
 });
 
