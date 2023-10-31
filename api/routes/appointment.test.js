@@ -27,8 +27,8 @@ describe("Appointment Route", () => {
 
   describe("POST /appointment", () => {
     beforeAll((done) => {
-      server = app.listen(3000, done); // Start the server and invoke 'done' when it's ready
-    }, 100000);
+      server = app.listen(3000, done);
+    }, 30000); 
 
     //Positive Test Case
     it("should create a new appointment", async () => {
